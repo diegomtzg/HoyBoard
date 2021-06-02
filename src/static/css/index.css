@@ -1,0 +1,64 @@
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background: #303030;
+  color: white;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.box {
+  border: 5px solid white;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.main-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.main-left {
+}
+
+.main-center {
+}
+
+.main-right {
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
