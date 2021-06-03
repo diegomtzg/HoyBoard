@@ -38,7 +38,6 @@ export default function Weather() {
         `aqi=no`;
       const response = await fetch(reqUrl);
       const weather = await response.json();
-      console.log(weather);
       setWeather(weather);
     }
 
@@ -55,6 +54,7 @@ export default function Weather() {
       <p>{parseInt(weather.current.temp_c)}°C</p>
       <p>{weather.current.condition.text}</p>
       <p>
+        {/* Location names with accents need to be UTF-8 decoded */}
         {decodeURIComponent(escape(weather.location.name))},{" "}
         {decodeURIComponent(escape(weather.location.region))}
       </p>
