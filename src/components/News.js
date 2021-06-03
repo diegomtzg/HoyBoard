@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // Once per hour
 const fetchPeriod = 1000 * 60 * 60;
 const numResults = 2;
+const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 
 const categories = [
   "general",
@@ -20,16 +21,13 @@ export default function News() {
   useEffect(() => {
     async function fetchNews() {
       console.log("Fetching news...");
-      const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
       var reqUrl =
         "https://newsapi.org/v2/top-headlines?" +
         "country=us&" +
         `apiKey=${NEWS_API_KEY}&` +
         `category=${categories[0]}&` +
         `pageSize=${numResults}`;
-
-      var req = new Request(reqUrl);
-      const response = await fetch(req);
+      const response = await fetch(reqUrl);
       const news = await response.json();
       setNews(news.articles);
     }
