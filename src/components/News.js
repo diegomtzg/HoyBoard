@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // Once per hour
 const fetchPeriod = 1000 * 60 * 60;
-const numResults = 2;
+const numResults = 5;
 const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 
 const categories = [

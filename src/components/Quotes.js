@@ -9,6 +9,7 @@ export default function Quotes() {
   useEffect(() => {
     async function fetchQuote() {
       console.log("Fetching quote...");
+      // TODO: Fetch author image using author-slug https://images.quotable.dev/profile/200/don-shula.jpg
       var reqUrl =
         "https://api.quotable.io/random?tags=inspirational|wisdom|famous-quotes&maxLength=80";
       const response = await fetch(reqUrl);

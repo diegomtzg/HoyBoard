@@ -32,16 +32,16 @@ export default function Time() {
     setInterval(() => {
       setDate(new Date());
     }, 1000);
-  });
+  }, []);
 
-  var dateString = date.toLocaleTimeString();
+  let [, hours, minutes, ampm] =
+    /([0-9]{1,2}):([0-9]{1,2}):[0-9]{1,2} ([A-Z]{2})/.exec(
+      date.toLocaleTimeString()
+    );
 
   return (
     <div className="time">
-      <p className="curr-time">
-        {dateString.substring(0, dateString.length - 6) +
-          dateString.substring(dateString.length - 3, dateString.length)}
-      </p>
+      <p className="curr-time">{`${hours}:${minutes} ${ampm}`}</p>
       <p className="weekday">{days[date.getDay()]}</p>
       <p className="full-date">{`${
         months[date.getMonth()]

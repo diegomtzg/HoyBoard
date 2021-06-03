@@ -7,7 +7,7 @@
 - Time and Date
 - [Top Headlines](https://newsapi.org/)
 - [Today's Agenda](https://developers.google.com/calendar)
-- [Random Quotes](https://zenquotes.io/)
+- [Random Quotes](https://api.quotable.io/)
 - [Trello To Do](https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/)
-- [Current Weather Forecast](https://openweathermap.org/api)
+- [Current Weather Forecast](https://www.weatherapi.com/)
 - [Recent Unread Emails](https://developers.google.com/gmail/api/)
