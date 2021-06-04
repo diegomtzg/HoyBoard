@@ -1,4 +1,4 @@
-# HoyBord
+# HoyBoard
 
 > All the information you need in one place
 
