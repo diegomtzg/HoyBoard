@@ -43,10 +43,15 @@ export default function GoogleAuthButton() {
       return;
     }
 
+    var midnight = new Date();
+    midnight.setHours(0, 0, 0, 0);
+    midnight.setDate(midnight.getDate() + 1);
+
     window.gapi.client.calendar.events
       .list({
         calendarId: "primary",
         timeMin: new Date().toISOString(),
+        timeMax: midnight.toISOString(),
         showDeleted: false,
         singleEvents: true,
         maxResults: 10,
@@ -54,19 +59,18 @@ export default function GoogleAuthButton() {
       })
       .then(function (response) {
         var events = response.result.items;
-        console.log("Upcoming events:");
-
         if (events.length > 0) {
-          for (let i = 0; i < events.length; i++) {
-            var event = events[i];
+          events.forEach((event) => {
             var when = event.start.dateTime;
             if (!when) {
-              when = event.start.date;
+              // All day events use start.date instead of start.dateTime
+              console.log(`All day: ${event.summary} on ${event.start.date}`);
+            } else {
+              console.log(`Not all day: ${event.summary} at ${when}`);
             }
-            console.log(event.summary + " (" + when + ")");
-          }
+          });
         } else {
-          console.log("No upcoming events found.");
+          console.log("No more events today.");
         }
       });
   }
