@@ -5,6 +5,7 @@ import ToDo from "./components/ToDo";
 import Quotes from "./components/Quotes";
 import Weather from "./components/Weather";
 import Emails from "./components/Emails";
+import GoogleAuthButton from "./components/GoogleAuthButton";
 
 function App() {
   return (
