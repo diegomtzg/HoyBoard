@@ -11,8 +11,10 @@ export default function GoogleAuthButton() {
           clientId: process.env.REACT_APP_GCAL_CLIENT_ID,
           discoveryDocs: [
             "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+            "https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest",
           ],
-          scope: "https://www.googleapis.com/auth/calendar.readonly",
+          scope:
+            "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/gmail.readonly",
         })
         .then(function () {
           // Listen for sign-in state changes.
@@ -34,6 +36,45 @@ export default function GoogleAuthButton() {
   function handleAuthClick() {
     window.gapi.auth2.getAuthInstance().signIn();
     fetchUpcomingEvents();
+    fetchUnreadEmails();
+  }
+
+  function fetchUnreadEmails() {
+    if (!window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
+      console.log("Not signed in...");
+      return;
+    }
+
+    window.gapi.client.gmail.users.messages
+      .list({
+        userId: "me",
+        labelIds: ["INBOX", "UNREAD"],
+        maxResults: 10,
+      })
+      .then(function (listResponse) {
+        var messages = listResponse.result.messages;
+        messages.forEach((messageId) => {
+          window.gapi.client.gmail.users.messages
+            .get({
+              userId: "me",
+              id: messageId.id,
+            })
+            .then((getResponse) => {
+              var message = getResponse.result;
+              var snippet = message.snippet.replace(/&#39;/g, "'");
+              var subject, sender;
+              message.payload.headers.forEach((header) => {
+                if (header.name === "Subject" || header.name === "subject") {
+                  subject = header.value;
+                }
+                if (header.name === "From" || header.name === "from") {
+                  [, sender] = /"?([^"\n]*)"? <.*>/.exec(header.value);
+                }
+              });
+              console.log(sender, subject, snippet);
+            });
+        });
+      });
   }
 
   function fetchUpcomingEvents() {
