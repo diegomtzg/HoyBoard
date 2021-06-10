@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 
 export default function AccountMenu() {
   const { signedIn } = useContext(AccountContext);
-  const [anchorEl, setAnchorEl] = useState(null);
 
   function getUserName() {
     if (signedIn) {
@@ -27,11 +26,6 @@ export default function AccountMenu() {
 
   function handleSignOut() {
     window.gapi.auth2.getAuthInstance().signOut();
-    closeMenu();
-  }
-
-  function closeMenu() {
-    setAnchorEl(null);
   }
 
   function signOutButton() {
@@ -50,7 +44,7 @@ export default function AccountMenu() {
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={(event) => {
-          signedIn ? setAnchorEl(event.currentTarget) : handleSignIn();
+          handleSignIn();
         }}
       >
         {getUserName()}
