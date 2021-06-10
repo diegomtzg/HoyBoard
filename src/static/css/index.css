@@ -31,6 +31,13 @@ body {
   border: 5px solid white;
 }
 
+.navbar {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .main {
   width: 100%;
   display: flex;

@@ -34,14 +34,14 @@ export default function Time() {
     }, 1000);
   }, []);
 
-  let [, hours, minutes, ampm] =
-    /([0-9]{1,2}):([0-9]{1,2}):[0-9]{1,2} ([A-Z]{2})/.exec(
+  let [, hours, minutes, seconds, ampm] =
+    /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
       date.toLocaleTimeString()
     );
 
   return (
     <div className="time">
-      <p className="curr-time">{`${hours}:${minutes} ${ampm}`}</p>
+      <p className="curr-time">{`${hours}:${minutes}:${seconds} ${ampm}`}</p>
       <p className="weekday">{days[date.getDay()]}</p>
       <p className="full-date">{`${
         months[date.getMonth()]
