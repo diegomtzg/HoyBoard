@@ -1,97 +1,95 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AccountContext from "./AccountContext";
 
-const fetchPeriod = 1000 * 60 * 60;
-const numResults = 5;
+// Every 5 minutes
+const fetchPeriod = 1000 * 60 * 5;
 
 export default function Agenda() {
-  const [events, setEvents] = useState([]);
+  const { signedIn } = useContext(AccountContext);
+  const [events, setEvents] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchUpcomingEvents() {
-      console.log("Fetching events...");
-      if (!window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
-        console.log("Not signed in...");
+    function fetchUpcomingEvents() {
+      if (!signedIn) {
         return;
       }
+
+      console.log("Fetching events...");
+      var midnight = new Date();
+      midnight.setHours(0, 0, 0, 0);
+      midnight.setDate(midnight.getDate() + 1);
 
       window.gapi.client.calendar.events
         .list({
           calendarId: "primary",
           timeMin: new Date().toISOString(),
+          timeMax: midnight.toISOString(),
           showDeleted: false,
           singleEvents: true,
           maxResults: 10,
           orderBy: "startTime",
         })
         .then(function (response) {
-          var events = response.result.items;
-          console.log("Upcoming events:");
-
-          if (events.length > 0) {
-            for (let i = 0; i < events.length; i++) {
-              var event = events[i];
-              var when = event.start.dateTime;
-              if (!when) {
-                when = event.start.date;
-              }
-              console.log(event.summary + " (" + when + ")");
-            }
-          } else {
-            console.log("No upcoming events found.");
-          }
-
+          var sortedEvents = sortEvents(response.result.items);
+          setEvents(sortedEvents);
           setLoading(false);
         });
     }
 
-    // fetchUpcomingEvents();
-    // const interval = setInterval(fetchEvents, fetchPeriod);
-    // return () => clearInterval(interval);
-  }, []);
+    fetchUpcomingEvents();
+    const interval = setInterval(fetchUpcomingEvents, fetchPeriod);
+    return () => clearInterval(interval);
+  }, [signedIn]);
 
-  function fetchUpcomingEvents() {
-    console.log("Fetching events...");
-    if (!window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
-      console.log("Not signed in...");
-      return;
-    }
-
-    var midnight = new Date();
-    midnight.setHours(0, 0, 0, 0);
-    midnight.setDate(midnight.getDate() + 1);
-
-    window.gapi.client.calendar.events
-      .list({
-        calendarId: "primary",
-        timeMin: new Date().toISOString(),
-        timeMax: midnight.toISOString(),
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: 10,
-        orderBy: "startTime",
-      })
-      .then(function (response) {
-        var events = response.result.items;
-        if (events.length > 0) {
-          events.forEach((event) => {
-            var when = event.start.dateTime;
-            if (!when) {
-              // All day events use start.date instead of start.dateTime
-              console.log(`All day: ${event.summary} on ${event.start.date}`);
-            } else {
-              console.log(`Not all day: ${event.summary} at ${when}`);
-            }
-          });
+  function sortEvents(items) {
+    var sortedEvents = { allDay: [], regular: [], empty: false };
+    if (items.length > 0) {
+      items.forEach((event) => {
+        var when = event.start.dateTime;
+        if (!when) {
+          // All-day events use start.date instead of start.dateTime
+          sortedEvents.allDay.push(event);
         } else {
-          console.log("No more events today.");
+          sortedEvents.regular.push(event);
         }
       });
+    } else {
+      // No more events left today.
+      sortedEvents.empty = true;
+    }
+
+    return sortedEvents;
   }
 
-  return (
-    <div className="agenda">
-      <h1>Agenda</h1>
-    </div>
-  );
+  function getEventTime(eventDateString) {
+    let [, hours, minutes, , ampm] =
+      /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
+        new Date(eventDateString).toLocaleTimeString()
+      );
+    return `${hours}:${minutes} ${ampm}`;
+  }
+
+  function renderAgenda() {
+    if (loading) {
+      return <p>Loading Agenda...</p>;
+    } else {
+      return (
+        <div className="Agenda">
+          <h3>All Day</h3>
+          {events.allDay.map((allDayEvent) => (
+            <p>{`${allDayEvent.summary}`}</p>
+          ))}
+          <h3>Regular</h3>
+          {events.regular.map((regularEvent) => (
+            <p>{`${getEventTime(regularEvent.start.dateTime)}: ${
+              regularEvent.summary
+            }`}</p>
+          ))}
+        </div>
+      );
+    }
+  }
+
+  return renderAgenda();
 }

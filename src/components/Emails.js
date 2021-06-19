@@ -3,7 +3,7 @@ import AccountContext from "./AccountContext";
 import "../static/css/emails.css";
 
 // Every 5 minutes
-const fetchPeriod = 1000 * 60;
+const fetchPeriod = 1000 * 60 * 5;
 
 export default function Emails() {
   const { signedIn } = useContext(AccountContext);
@@ -18,7 +18,6 @@ export default function Emails() {
       }
 
       const emailDict = {};
-
       console.log("Fetching unread emails...");
       window.gapi.client.gmail.users.messages
         .list({
@@ -77,8 +76,8 @@ export default function Emails() {
     }
 
     fetchEmails();
-    // const interval = setInterval(fetchEmails, fetchPeriod);
-    // return () => clearInterval(interval);
+    const interval = setInterval(fetchEmails, fetchPeriod);
+    return () => clearInterval(interval);
   }, [signedIn]);
 
   function renderEmails() {
