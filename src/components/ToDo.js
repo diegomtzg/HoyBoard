@@ -4,14 +4,14 @@ import React, { useState, useEffect } from "react";
 const fetchPeriod = 1000 * 60 * 10;
 
 export default function ToDo() {
-  const [lists, setLists] = useState({ id: "", name: "", cards: [] });
+  const [lists, setLists] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function transformLists(lists) {
       let listMap = {};
       lists.forEach((list) => {
-        listMap[list.id] = list.name;
+        listMap[list.id] = { name: list.name, cards: [] };
       });
       return listMap;
     }
@@ -27,9 +27,8 @@ export default function ToDo() {
       const response = await fetch(listsReqUrl);
       const lists = await response.json();
 
-      // Convert array of lists to map of list id to list name.
-      const listNames = transformLists(lists);
-      console.log("Lists", listNames);
+      // Convert array of lists objects to map of list IDs to list info.
+      const listMap = transformLists(lists);
 
       // Get all cards and add each to their list entry.
       var cardsReqUrl =
@@ -40,10 +39,12 @@ export default function ToDo() {
       fetch(cardsReqUrl).then((response) => {
         response.json().then((cards) => {
           cards.forEach((card) => {
-            console.log(listNames[card.idList], card.name);
+            listMap[card.idList].cards.push(card.name);
           });
         });
       });
+
+      setLists(listMap);
       setLoading(false);
     }
 
@@ -52,15 +53,28 @@ export default function ToDo() {
     // return () => clearInterval(interval);
   }, []);
 
+  function renderLists() {
+    return (
+      <div className="todo-lists">
+        <p>{Object.entries(lists).length}</p>
+        {Object.entries(lists).map(([, list]) => (
+          <div className="todo-list">
+            <h3>{list.name}</h3>
+            {console.log(list.cards.length)}
+            {list.cards.map((card) => (
+              <p>{card}</p>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   function renderToDo() {
     if (loading) {
       return <p>Loading ToDo...</p>;
     } else {
-      return (
-        <div className="ToDo">
-          <h1>ToDo</h1>
-        </div>
-      );
+      return <div className="ToDo">{renderLists()}</div>;
     }
   }
 
