@@ -5,6 +5,7 @@ const numResults = 5;
 
 export default function Agenda() {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUpcomingEvents() {
@@ -39,6 +40,8 @@ export default function Agenda() {
           } else {
             console.log("No upcoming events found.");
           }
+
+          setLoading(false);
         });
     }
 

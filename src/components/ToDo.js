@@ -5,6 +5,7 @@ const fetchPeriod = 1000 * 60 * 10;
 
 export default function ToDo() {
   const [lists, setLists] = useState({ id: "", name: "", cards: [] });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function transformLists(lists) {
@@ -43,6 +44,7 @@ export default function ToDo() {
           });
         });
       });
+      setLoading(false);
     }
 
     fetchTrelloCards();
@@ -50,9 +52,17 @@ export default function ToDo() {
     // return () => clearInterval(interval);
   }, []);
 
-  return (
-    <div className="ToDo">
-      <h1>ToDo</h1>
-    </div>
-  );
+  function renderToDo() {
+    if (loading) {
+      return <p>Loading ToDo...</p>;
+    } else {
+      return (
+        <div className="ToDo">
+          <h1>ToDo</h1>
+        </div>
+      );
+    }
+  }
+
+  return renderToDo();
 }
