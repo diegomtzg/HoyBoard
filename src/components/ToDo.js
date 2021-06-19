@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-// Every 10 minutes
-const fetchPeriod = 1000 * 60 * 10;
+// Every 5 minutes
+const fetchPeriod = 1000 * 60 * 5;
 
 export default function ToDo() {
-  const [lists, setLists] = useState({});
+  const [lists, setLists] = useState([]);
+  const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    function transformLists(lists) {
-      let listMap = {};
-      lists.forEach((list) => {
-        listMap[list.id] = { name: list.name, cards: [] };
-      });
-      return listMap;
-    }
     async function fetchTrelloCards() {
       console.log("Fetching Trello cards...");
 
@@ -24,11 +18,8 @@ export default function ToDo() {
         `${process.env.REACT_APP_TRELLO_BOARD_ID}/lists?` +
         `key=${process.env.REACT_APP_TRELLO_API_KEY}&` +
         `token=${process.env.REACT_APP_TRELLO_TOKEN}`;
-      const response = await fetch(listsReqUrl);
-      const lists = await response.json();
-
-      // Convert array of lists objects to map of list IDs to list info.
-      const listMap = transformLists(lists);
+      const listsResponse = await fetch(listsReqUrl);
+      setLists(await listsResponse.json());
 
       // Get all cards and add each to their list entry.
       var cardsReqUrl =
@@ -36,31 +27,43 @@ export default function ToDo() {
         `${process.env.REACT_APP_TRELLO_BOARD_ID}/cards?` +
         `key=${process.env.REACT_APP_TRELLO_API_KEY}&` +
         `token=${process.env.REACT_APP_TRELLO_TOKEN}`;
-      fetch(cardsReqUrl).then((response) => {
-        response.json().then((cards) => {
-          cards.forEach((card) => {
-            listMap[card.idList].cards.push(card.name);
-          });
-        });
-      });
-
-      setLists(listMap);
+      const cardsResponse = await fetch(cardsReqUrl);
+      setCards(await cardsResponse.json());
       setLoading(false);
     }
 
     fetchTrelloCards();
-    // const interval = setInterval(fetchTrelloCards, fetchPeriod);
-    // return () => clearInterval(interval);
+    const interval = setInterval(fetchTrelloCards, fetchPeriod);
+    return () => clearInterval(interval);
   }, []);
 
+  function transformLists() {
+    const listMap = {};
+
+    // Map list id to name and list of cards
+    lists.forEach((list) => {
+      listMap[list.id] = {
+        name: list.name,
+        cards: [],
+      };
+    });
+
+    // Add cards to list object
+    cards.forEach((card) => {
+      listMap[card.idList].cards.push(card.name);
+    });
+
+    return listMap;
+  }
+
   function renderLists() {
+    const listMap = transformLists();
+
     return (
       <div className="todo-lists">
-        <p>{Object.entries(lists).length}</p>
-        {Object.entries(lists).map(([, list]) => (
-          <div className="todo-list">
+        {Object.entries(listMap).map(([id, list]) => (
+          <div>
             <h3>{list.name}</h3>
-            {console.log(list.cards.length)}
             {list.cards.map((card) => (
               <p>{card}</p>
             ))}
