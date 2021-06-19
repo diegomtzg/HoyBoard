@@ -29,7 +29,16 @@ export default function Time() {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    const interval = setInterval(() => setDate(new Date()), 1000);
+    function updateTime() {
+      setDate(new Date());
+
+      // Time controls background video playback.
+      var video = document.getElementById("background-video");
+      video.playbackRate = 0.4;
+    }
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 

@@ -5,7 +5,7 @@ html {
 body {
   width: 100%;
   height: 100%;
-  background: #303030;
+  background: black;
   color: white;
   margin: 0;
   font-family: "Montserrat", sans-serif;
@@ -27,8 +27,14 @@ body {
   align-items: stretch;
 }
 
+#background-video {
+  position: fixed;
+  max-width: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
 .box {
-  border: 5px solid white;
 }
 
 .navbar {

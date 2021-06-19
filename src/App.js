@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import daynight from "./static/videos/daynight.webm";
 
 import Time from "./components/Time";
 import News from "./components/News";
@@ -46,6 +47,10 @@ function App() {
 
   return (
     <div className="app">
+      <video id="background-video" autoPlay loop muted>
+        <source src={daynight} type="video/webm" />
+      </video>
+
       <AccountContext.Provider value={{ signedIn }}>
         <div className="navbar">
           <AccountMenu />
