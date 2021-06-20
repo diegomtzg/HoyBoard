@@ -51,6 +51,7 @@ export default function Agenda() {
           // All-day events use start.date instead of start.dateTime
           sortedEvents.allDay.push(event);
         } else {
+          // TODO: If ongoing, display when it ends instead of when it starts (ends in ...)
           sortedEvents.regular.push(event);
         }
       });

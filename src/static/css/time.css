@@ -1,0 +1,40 @@
+.time {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.curr-time {
+  font-size: 4em;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.time-extra {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 4px;
+  line-height: 1;
+}
+
+.time-sec {
+  font-size: 0.5em;
+  color: gray;
+  width: 42px;
+  text-align: center;
+}
+
+.time-ampm {
+  font-size: 18px;
+}
+
+.full-date {
+  margin: 0;
+  font-size: 1.2em;
+  padding-right: 4px;
+}

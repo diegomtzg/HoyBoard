@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../static/css/time.css";
 
 const months = [
   "January",
@@ -49,9 +50,14 @@ export default function Time() {
 
   return (
     <div className="time">
-      <p className="curr-time">{`${hours}:${minutes}:${seconds} ${ampm}`}</p>
-      <p className="weekday">{days[date.getDay()]}</p>
-      <p className="full-date">{`${
+      <div className="curr-time">
+        <span className="time-hm">{`${hours}:${minutes}`}</span>
+        <div className="time-extra">
+          <span className="time-ampm">{` ${ampm}`}</span>
+          <span className="time-sec">{`${seconds}`}</span>
+        </div>
+      </div>
+      <p className="full-date">{`${days[date.getDay()]}, ${
         months[date.getMonth()]
       } ${date.getDate()}, ${date.getFullYear()}`}</p>
     </div>

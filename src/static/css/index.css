@@ -61,12 +61,14 @@ body {
 }
 
 .main-left {
+  padding-left: 5%;
 }
 
 .main-center {
 }
 
 .main-right {
+  padding-right: 5%;
 }
 
 .bottom {
