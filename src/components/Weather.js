@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 import "../static/css/weather.css";
 
 // Every 10 minutes
@@ -39,7 +40,7 @@ export default function Weather() {
 
   function renderWeather() {
     if (loading) {
-      return <p>Loading weather...</p>;
+      return <PulseLoader color={"#8f8f8f"} loading={loading} />;
     } else {
       return (
         <div className="weather">

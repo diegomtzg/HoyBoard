@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 import AccountContext from "./AccountContext";
 
 // Every 5 minutes
@@ -73,7 +74,7 @@ export default function Agenda() {
 
   function renderAgenda() {
     if (loading) {
-      return <p>Loading Agenda...</p>;
+      return <PulseLoader color={"#8f8f8f"} loading={loading} />;
     } else {
       return (
         <div className="Agenda">

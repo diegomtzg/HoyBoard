@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 
 // Every 5 minutes
 const fetchPeriod = 1000 * 60 * 5;
@@ -75,7 +76,7 @@ export default function ToDo() {
 
   function renderToDo() {
     if (loading) {
-      return <p>Loading ToDo...</p>;
+      return <PulseLoader color={"#8f8f8f"} loading={loading} />;
     } else {
       return <div className="ToDo">{renderLists()}</div>;
     }

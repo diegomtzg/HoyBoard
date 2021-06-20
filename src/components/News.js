@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 
 // Once per hour
 const fetchPeriod = 1000 * 60 * 60;
@@ -17,6 +18,7 @@ const categories = [
 
 export default function News() {
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchNews() {
@@ -30,6 +32,7 @@ export default function News() {
       const response = await fetch(reqUrl);
       const news = await response.json();
       setNews(news.articles);
+      setLoading(false);
     }
 
     fetchNews();
@@ -37,14 +40,18 @@ export default function News() {
     return () => clearInterval(interval);
   }, []); // Run only when component mounts, not when state changes (state set here, runs forever)
 
-  return (
-    <div className="news">
-      <p>Today's Headlines</p>
-      <ul>
-        {news.map((article, idx) => (
-          <li key={idx}>{article.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  if (loading) {
+    return <PulseLoader color={"#8f8f8f"} loading={loading} />;
+  } else {
+    return (
+      <div className="news">
+        <p>Today's Headlines</p>
+        <ul>
+          {news.map((article, idx) => (
+            <li key={idx}>{article.title}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AccountContext from "./AccountContext";
+import PulseLoader from "react-spinners/PulseLoader";
 import "../static/css/emails.css";
 
 // Every 5 minutes
@@ -82,7 +83,7 @@ export default function Emails() {
 
   function renderEmails() {
     if (loading) {
-      return <p>Loading emails...</p>;
+      return <PulseLoader color={"#8f8f8f"} loading={loading} />;
     } else {
       return (
         <ul>
