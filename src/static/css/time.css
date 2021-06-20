@@ -23,14 +23,15 @@
 }
 
 .time-sec {
-  font-size: 0.5em;
+  font-size: 0.4em;
   color: gray;
   width: 42px;
   text-align: center;
 }
 
 .time-ampm {
-  font-size: 30%;
+  padding-left: 5px;
+  font-size: 25%;
 }
 
 .full-date {
