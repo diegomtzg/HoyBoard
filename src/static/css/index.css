@@ -61,14 +61,20 @@ body {
 }
 
 .main-left {
-  padding-left: 5%;
+  align-items: flex-start;
+  padding-left: 8%;
+  padding-top: 4%;
+  justify-content: space-between;
 }
 
 .main-center {
 }
 
 .main-right {
-  padding-right: 5%;
+  align-items: flex-end;
+  padding-right: 8%;
+  padding-top: 4%;
+  justify-content: space-between;
 }
 
 .bottom {

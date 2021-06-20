@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import "../static/css/weather.css";
 
-// Every 30 minutes
-const fetchPeriod = 1000 * 60 * 30;
+// Every 10 minutes
+const fetchPeriod = 1000 * 60 * 10;
 const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 export default function Weather() {
@@ -42,9 +43,17 @@ export default function Weather() {
     } else {
       return (
         <div className="weather">
-          <p>{parseInt(weather.current.temp_c)}°C</p>
-          <p>{weather.current.condition.text}</p>
-          <p>
+          <div className="temperature">
+            <span>{parseInt(weather.current.temp_c)}</span>
+            <span className="degree">°C</span>
+            <img
+              className="weather-icon"
+              src={weather.current.condition.icon}
+              alt={weather.current.condition.text}
+            />
+          </div>
+          <p className="condition-text">{weather.current.condition.text}</p>
+          <p className="location">
             {/* Location names with accents need to be UTF-8 decoded */}
             {decodeURIComponent(escape(weather.location.name))},{" "}
             {decodeURIComponent(escape(weather.location.region))}
