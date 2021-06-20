@@ -47,11 +47,13 @@ export default function Weather() {
           <div className="temperature">
             <span>{parseInt(weather.current.temp_c)}</span>
             <span className="degree">°C</span>
-            <img
-              className="weather-icon"
-              src={weather.current.condition.icon}
-              alt={weather.current.condition.text}
-            />
+            <div className="icon-container">
+              <img
+                className="weather-icon"
+                src={weather.current.condition.icon}
+                alt={weather.current.condition.text}
+              />
+            </div>
           </div>
           <p className="condition-text">{weather.current.condition.text}</p>
           <p className="location">

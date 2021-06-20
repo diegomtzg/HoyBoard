@@ -1,0 +1,26 @@
+.news {
+  margin-bottom: 50px;
+}
+
+.news-title {
+  margin-bottom: 10px;
+}
+
+.news-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 5px;
+}
+
+.news-headline {
+  font-size: 1.1em;
+  padding: 4px 0;
+}
+
+.news-source {
+  font-weight: bold;
+}
+
+.top-border {
+  border-top: 2px solid white;
+}
