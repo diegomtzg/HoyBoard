@@ -45,15 +45,15 @@ export default function News() {
         <ul className="news-list">
           <div className="news-headline">
             <li key={0}>
-              <span className="news-source">{news[0].source}</span>
-              {` – ${news[0].title}`}
+              <span className="news-source">{`${news[0].source} – `}</span>
+              {news[0].title}
             </li>
           </div>
           {news.slice(1).map((article, idx) => (
             <div className="news-headline top-border">
               <li key={idx}>
-                <span className="news-source">{article.source}</span>
-                {` – ${article.title}`}
+                <span className="news-source">{`${article.source} – `}</span>
+                {article.title}
               </li>
             </div>
           ))}
