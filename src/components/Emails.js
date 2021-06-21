@@ -86,9 +86,11 @@ export default function Emails() {
       return <PulseLoader color={"#8f8f8f"} loading={loading} />;
     } else {
       return (
-        <ul>
+        <ul className="email-list">
           {emailIds.map((id, idx) => (
-            <li key={idx}>{id}</li>
+            <li className="email-item" key={idx}>
+              {id}
+            </li>
           ))}
         </ul>
       );

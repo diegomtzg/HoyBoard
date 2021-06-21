@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
+import "../static/css/quotes.css";
 
 // Every 5 minutes
 const fetchPeriod = 1000 * 60 * 5;
@@ -29,8 +30,8 @@ export default function Quotes() {
   } else {
     return (
       <div className="quotes">
-        <p>"{quote.content}"</p>
-        <p>– {quote.author}</p>
+        <p className="quote">"{quote.content}"</p>
+        <p className="author">– {quote.author}</p>
       </div>
     );
   }

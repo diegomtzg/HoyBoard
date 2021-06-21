@@ -3,8 +3,8 @@ import PulseLoader from "react-spinners/PulseLoader";
 import AccountContext from "./AccountContext";
 import "../static/css/agenda.css";
 
-// Every 10 seconds
-const fetchPeriod = 1000 * 10;
+// Every minute
+const fetchPeriod = 1000 * 60;
 
 export default function Agenda() {
   const { signedIn } = useContext(AccountContext);
