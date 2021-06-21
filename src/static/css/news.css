@@ -4,7 +4,7 @@
 }
 
 .news-title {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .news-list {
@@ -16,10 +16,23 @@
 .news-headline {
   font-size: 1.05em;
   padding: 4px 0;
+}
+
+.news-source {
   font-weight: bold;
 }
 
-.news-abstract {
-  padding-bottom: 10px;
+.news-description {
   margin: 0;
+  color: rgb(204, 204, 204);
+  font-size: 80%;
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.top-border {
+  border-top: 2px solid white;
 }

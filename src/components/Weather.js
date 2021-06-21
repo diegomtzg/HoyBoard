@@ -66,8 +66,6 @@ export default function Weather() {
     }
   }
 
-  // TODO: Figure out how to have loading screen until all components have finished mounting.
-  // TODO: Add icon from weather.current.condition.icon (cdn.weatherapi.com/weather/64x64/day/116.png)
   // TODO: You can use weather.current.is_day to switch between light/dark mode.
   return renderWeather();
 }
