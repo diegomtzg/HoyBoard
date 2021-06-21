@@ -1,9 +1,10 @@
 .news {
   margin-bottom: 50px;
+  width: 90%;
 }
 
 .news-title {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .news-list {
@@ -15,12 +16,10 @@
 .news-headline {
   font-size: 1.05em;
   padding: 4px 0;
-}
-
-.news-source {
   font-weight: bold;
 }
 
-.top-border {
-  border-top: 2px solid white;
+.news-abstract {
+  padding-bottom: 10px;
+  margin: 0;
 }
