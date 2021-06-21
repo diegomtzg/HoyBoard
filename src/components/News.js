@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import "../static/css/news.css";
 
-// Once per hour
-const fetchPeriod = 1000 * 60 * 60;
-const numResults = 5;
+// Once every 5 minutes.
+const fetchPeriod = 1000 * 60 * 5;
+const numResults = 4;
 const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 
 export default function News() {
@@ -17,7 +17,7 @@ export default function News() {
       var reqUrl =
         "https://newsapi.org/v2/top-headlines?" +
         `apiKey=${NEWS_API_KEY}&` +
-        `sources=abc-news,bbc-news,bloomberg,business-insider,cbs-news,cnn,fortune,google-news,hacker-news,nbc-news,newsweek,politico,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post,time,usa-today,wired&` +
+        `sources=bbc-news,cbs-news,cnn,fortune,google-news,nbc-news,newsweek,politico,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post,time,usa-today&` +
         `pageSize=100`;
       const response = await fetch(reqUrl);
       const news = await response.json();
@@ -34,7 +34,7 @@ export default function News() {
   // Choose 8 unique random numbers to always show different news articles
   var randomNumbers = [];
   while (randomNumbers.length < numResults) {
-    var r = Math.floor(Math.random() * 100) + 1;
+    var r = Math.floor(Math.random() * 100);
     if (randomNumbers.indexOf(r) === -1) randomNumbers.push(r);
   }
 

@@ -23,12 +23,13 @@
 }
 
 .news-description {
+  padding-top: 5px;
   margin: 0;
-  color: rgb(204, 204, 204);
+  font-style: italic;
   font-size: 80%;
   width: 100%;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
