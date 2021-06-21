@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import AccountContext from "./AccountContext";
+import "../static/css/agenda.css";
 
-// Every 5 minutes
-const fetchPeriod = 1000 * 60 * 5;
+// Every 10 seconds
+const fetchPeriod = 1000 * 10;
 
 export default function Agenda() {
   const { signedIn } = useContext(AccountContext);
@@ -69,29 +70,52 @@ export default function Agenda() {
       /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
         new Date(eventDateString).toLocaleTimeString()
       );
-    return `${hours}:${minutes} ${ampm}`;
+
+    if (false) {
+      return `Ending in ${30} minutes.`;
+    } else {
+      return `Starts at ${hours}:${minutes} ${ampm}`;
+    }
   }
 
-  function renderAgenda() {
-    if (loading) {
-      return <PulseLoader color={"#8f8f8f"} loading={loading} />;
+  function renderEvents() {
+    if (events.empty) {
+      return <h3 className="no-events">No more events today!</h3>;
     } else {
       return (
-        <div className="Agenda">
-          <h3>All Day</h3>
-          {events.allDay.map((allDayEvent) => (
-            <p>{`${allDayEvent.summary}`}</p>
+        <ul className="events-list">
+          {events.allDay.map((event, idx) => (
+            <li className="event-item" key={idx}>
+              <div className="event-details">
+                <span className="event-name">{`${event.summary}`}</span>
+                <span className="event-time">{`All day`}</span>
+              </div>
+            </li>
           ))}
-          <h3>Regular</h3>
-          {events.regular.map((regularEvent) => (
-            <p>{`${getEventTime(regularEvent.start.dateTime)}: ${
-              regularEvent.summary
-            }`}</p>
+          {events.regular.length > 0 ? <div className="border" /> : <span />}
+          {events.regular.map((event, idx) => (
+            <li className="event-item" key={idx}>
+              <div className="event-details">
+                <span className="event-name">{`${event.summary}`}</span>
+                <span className="event-time">{`${getEventTime(
+                  event.start.dateTime
+                )}`}</span>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       );
     }
   }
 
-  return renderAgenda();
+  if (loading) {
+    return <PulseLoader color={"#8f8f8f"} loading={loading} />;
+  } else {
+    return (
+      <div className="agenda">
+        <h1 className="agenda-title">Upcoming Events</h1>
+        {renderEvents()}
+      </div>
+    );
+  }
 }

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import "../static/css/todo.css";
 
 // Every 30 seconds
 const fetchPeriod = 1000 * 30;
@@ -29,10 +32,13 @@ export default function ToDo() {
 
   function renderCards() {
     return (
-      <ul className="cards-list">
+      <ul className="todo-list">
         {cards.map((card, idx) => (
           <div className="todo-card">
-            <li key={idx}>{card.name}</li>
+            <li key={idx}>
+              {<FontAwesomeIcon icon={faThumbtack} color={"white"} />}
+              {` ${card.name}`}
+            </li>
           </div>
         ))}
       </ul>
@@ -43,7 +49,7 @@ export default function ToDo() {
     return <PulseLoader color={"#8f8f8f"} loading={loading} />;
   } else {
     return (
-      <div className="ToDo">
+      <div className="todo">
         <h1 className="todo-title">To Do List</h1>
         {renderCards()}
       </div>

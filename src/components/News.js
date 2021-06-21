@@ -15,7 +15,7 @@ export default function News() {
     async function fetchNews() {
       console.log("Fetching news...");
       const reqUrl =
-        `https://api.nytimes.com/svc/topstories/v2/technology.json?` +
+        `https://api.nytimes.com/svc/topstories/v2/world.json?` +
         `api-key=${NEWS_API_KEY}`;
       const response = await fetch(reqUrl);
       const news = await response.json();

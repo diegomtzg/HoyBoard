@@ -1,0 +1,26 @@
+.agenda {
+}
+
+.agenda-title {
+  margin-bottom: 12px;
+}
+
+.events-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 5px;
+}
+
+.event-item {
+  font-size: 1.05em;
+  padding: 4px 0;
+}
+
+.event-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.border {
+  border-bottom: 2px solid white;
+}
