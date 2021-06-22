@@ -63,10 +63,10 @@ function App() {
           </div>
           <div className="main-col main-center">
             <Agenda />
-            <ToDo />
           </div>
           <div className="main-col main-right">
             <Weather />
+            <ToDo />
             <Emails />
           </div>
         </div>
