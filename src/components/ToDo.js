@@ -31,18 +31,22 @@ export default function ToDo() {
   }, []);
 
   function renderCards() {
-    return (
-      <ul className="todo-list">
-        {cards.map((card, idx) => (
-          <div className="todo-card">
-            <li key={idx}>
-              {<FontAwesomeIcon icon={faThumbtack} color={"white"} />}
-              {` ${card.name}`}
-            </li>
-          </div>
-        ))}
-      </ul>
-    );
+    if (cards.length > 0) {
+      return (
+        <ul className="todo-list">
+          {cards.map((card, idx) => (
+            <div className="todo-card">
+              <li key={idx}>
+                {<FontAwesomeIcon icon={faThumbtack} color={"white"} />}
+                {` ${card.name}`}
+              </li>
+            </div>
+          ))}
+        </ul>
+      );
+    } else {
+      return <p className="todo-empty">Empty!</p>;
+    }
   }
 
   if (loading) {

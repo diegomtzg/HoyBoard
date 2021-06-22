@@ -4,7 +4,7 @@ import "../static/css/news.css";
 
 // Once every 5 minutes.
 const fetchPeriod = 1000 * 60 * 5;
-const numResults = 3;
+const numResults = 4;
 const NEWS_API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 
 export default function News() {
@@ -17,7 +17,7 @@ export default function News() {
       var reqUrl =
         "https://newsapi.org/v2/top-headlines?" +
         `apiKey=${NEWS_API_KEY}&` +
-        `sources=bbc-news,cnn,google-news,nbc-news,newsweek,politico,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
+        `sources=bbc-news,cnn,google-news,nbc-news,politico,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
         `pageSize=100`;
       const response = await fetch(reqUrl);
       const news = await response.json();

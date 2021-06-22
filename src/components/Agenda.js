@@ -53,7 +53,6 @@ export default function Agenda() {
           // All-day events use start.date instead of start.dateTime
           sortedEvents.allDay.push(event);
         } else {
-          // TODO: If ongoing, display when it ends instead of when it starts (ends in ...)
           sortedEvents.regular.push(event);
         }
       });
@@ -65,16 +64,25 @@ export default function Agenda() {
     return sortedEvents;
   }
 
-  function getEventTime(eventDateString) {
-    let [, hours, minutes, , ampm] =
+  function getEventTime(event) {
+    const eventStart = new Date(event.start.dateTime);
+    const eventEnd = new Date(event.end.dateTime);
+    let [, startHours, startMinutes, , startAmPm] =
       /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
-        new Date(eventDateString).toLocaleTimeString()
+        eventStart.toLocaleTimeString()
+      );
+    let [, endHours, endMinutes, , endAmPm] =
+      /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
+        eventEnd.toLocaleTimeString()
       );
 
-    if (false) {
-      return `Ending in ${30} minutes.`;
+    const currTime = new Date();
+    const diffMs = eventEnd - currTime;
+    const minutesToEnd = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    if (currTime > eventStart && currTime < eventEnd) {
+      return `Ends in ${minutesToEnd} minutes`;
     } else {
-      return `Starts at ${hours}:${minutes} ${ampm}`;
+      return `${startHours}:${startMinutes} ${startAmPm} – ${endHours}:${endMinutes} ${endAmPm}`;
     }
   }
 
@@ -97,9 +105,7 @@ export default function Agenda() {
             <li className="event-item" key={idx}>
               <div className="event-details">
                 <span className="event-name">{`${event.summary}`}</span>
-                <span className="event-time">{`${getEventTime(
-                  event.start.dateTime
-                )}`}</span>
+                <span className="event-time">{`${getEventTime(event)}`}</span>
               </div>
             </li>
           ))}
@@ -113,7 +119,7 @@ export default function Agenda() {
   } else {
     return (
       <div className="agenda">
-        <h1 className="agenda-title">Upcoming Events</h1>
+        <h1 className="agenda-title">Today's Events</h1>
         {renderEvents()}
       </div>
     );

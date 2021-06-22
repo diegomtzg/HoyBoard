@@ -5,7 +5,7 @@ import "../static/css/emails.css";
 
 // Every 5 minutes
 const fetchPeriod = 1000 * 60 * 5;
-const maxResults = 5;
+const maxResults = 4;
 
 export default function Emails() {
   const { signedIn } = useContext(AccountContext);

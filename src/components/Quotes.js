@@ -13,7 +13,7 @@ export default function Quotes() {
     async function fetchQuote() {
       console.log("Fetching quote...");
       var reqUrl =
-        "https://api.quotable.io/random?tags=inspirational&maxLength=80";
+        "https://api.quotable.io/random?tags=inspirational&maxLength=80&minLength=30";
       const response = await fetch(reqUrl);
       const quote = await response.json();
       setQuote(quote);
