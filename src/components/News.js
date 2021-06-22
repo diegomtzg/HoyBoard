@@ -17,11 +17,10 @@ export default function News() {
       var reqUrl =
         "https://newsapi.org/v2/top-headlines?" +
         `apiKey=${NEWS_API_KEY}&` +
-        `sources=bbc-news,cbs-news,cnn,fortune,google-news,nbc-news,newsweek,politico,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post,time,usa-today&` +
-        `pageSize=100`;
+        `sources=bbc-news,cnn,google-news,nbc-news,newsweek,politico,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
+        `pageSize=60`;
       const response = await fetch(reqUrl);
       const news = await response.json();
-      console.log(news.articles);
       setNews(news.articles);
       setLoading(false);
     }
@@ -34,12 +33,10 @@ export default function News() {
   // Choose 8 unique random numbers to always show different news articles
   var randomNumbers = [];
   while (randomNumbers.length < numResults) {
-    var r = Math.floor(Math.random() * 100);
+    var r = Math.floor(Math.random() * 60);
     if (randomNumbers.indexOf(r) === -1) randomNumbers.push(r);
   }
 
-  console.log(news);
-  console.log(randomNumbers);
   if (loading) {
     return <PulseLoader color={"#8f8f8f"} loading={loading} />;
   } else {
@@ -48,11 +45,10 @@ export default function News() {
         <h1 className="news-title">Today's Headlines</h1>
         <ul className="news-list">
           <div className="news-headline">
-            {randomNumbers.forEach}
             <li key={0}>
-              <span className="news-source">{`${
+              <span className="news-source">{`• ${
                 news[randomNumbers[0]].source.name
-              }: `}</span>
+              } – `}</span>
               <span className="news-title">{news[randomNumbers[0]].title}</span>
               <p className="news-description">
                 {news[randomNumbers[0]].description}
@@ -62,7 +58,7 @@ export default function News() {
           {randomNumbers.slice(1).map((randomNumber, idx) => (
             <div className="news-headline top-border">
               <li key={idx}>
-                <span className="news-source">{`${news[randomNumber].source.name}: `}</span>
+                <span className="news-source">{`• ${news[randomNumber].source.name} – `}</span>
                 <span className="news-title">{news[randomNumber].title}</span>
                 <p className="news-description">
                   {news[randomNumber].description}

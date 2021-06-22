@@ -18,7 +18,6 @@ export default function Emails() {
         return;
       }
 
-      const emailDict = {};
       console.log("Fetching unread emails...");
       window.gapi.client.gmail.users.messages
         .list({
@@ -30,6 +29,7 @@ export default function Emails() {
           const ids = listResponse.result.messages.map((message) => message.id);
           setEmailIds(ids);
 
+          var numLoaded = 0;
           ids.forEach((id) => {
             // We have ids for each email so we need to get additional information.
             window.gapi.client.gmail.users.messages
@@ -66,41 +66,47 @@ export default function Emails() {
                   date: date,
                 };
 
-                emailDict[id] = email;
+                var emailDict = emails;
+                if (!(id in emailDict)) {
+                  emailDict[id] = email;
+                  setEmails(emailDict);
+                }
+                numLoaded++;
+
+                console.log(numLoaded, ids.length);
+                if (numLoaded === ids.length) {
+                  // Finished loading all emails.
+                  setLoading(false);
+                }
               });
           });
-
-          // Finished loading all emails.
-          setEmails(emailDict);
-          setLoading(false);
         });
     }
 
     fetchEmails();
     const interval = setInterval(fetchEmails, fetchPeriod);
     return () => clearInterval(interval);
-  }, [signedIn]);
+  }, [signedIn, emails]);
 
-  function renderEmails() {
-    if (loading) {
-      return <PulseLoader color={"#8f8f8f"} loading={loading} />;
-    } else {
-      return (
+  function renderEmail(emailId) {
+    console.log(emailId, emails);
+    return emails[emailId].sender;
+  }
+
+  if (loading) {
+    return <PulseLoader color={"#8f8f8f"} loading={loading} />;
+  } else {
+    return (
+      <div className="emails">
+        <h1>Emails</h1>
         <ul className="email-list">
           {emailIds.map((id, idx) => (
             <li className="email-item" key={idx}>
-              {id}
+              {renderEmail(id)}
             </li>
           ))}
         </ul>
-      );
-    }
+      </div>
+    );
   }
-
-  return (
-    <div className="emails">
-      <h1>Emails</h1>
-      {renderEmails()}
-    </div>
-  );
 }
