@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import AccountContext from "./AccountContext";
+import "../static/css/menu.css";
 
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -74,7 +74,6 @@ export default function Emails() {
                 }
                 numLoaded++;
 
-                console.log(numLoaded, ids.length);
                 if (numLoaded === ids.length) {
                   // Finished loading all emails.
                   setLoading(false);
@@ -93,7 +92,7 @@ export default function Emails() {
     const email = emails[emailId];
     return (
       <div className="email-content">
-        <span className="email-sender">{"• " + email.sender + " – "}</span>
+        <span className="email-sender">{email.sender + " – "}</span>
         <span className="email-subject">{email.subject}</span> |{" "}
         <span className="email-snippet">{email.snippet}</span>
       </div>

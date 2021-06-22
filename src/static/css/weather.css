@@ -1,15 +1,17 @@
 .weather {
   padding-right: 10%;
+  padding-top: 10px;
 }
 
 .temperature {
   display: flex;
   flex-direction: row;
-  font-size: 4em;
+  font-size: 5em;
+  line-height: 1;
 }
 
 .degree {
-  font-size: 30px;
+  font-size: 40px;
   padding-left: 5px;
   padding-top: 10px;
 }
@@ -25,12 +27,13 @@
 }
 
 .condition-text {
-  font-size: 1.3em;
+  font-size: 1.5em;
   margin: 0;
+  line-height: 1;
 }
 
 .location {
   margin: 0;
   margin-top: 5px;
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
