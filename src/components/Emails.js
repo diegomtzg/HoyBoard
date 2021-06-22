@@ -5,6 +5,7 @@ import "../static/css/emails.css";
 
 // Every 5 minutes
 const fetchPeriod = 1000 * 60 * 5;
+const maxResults = 5;
 
 export default function Emails() {
   const { signedIn } = useContext(AccountContext);
@@ -23,7 +24,7 @@ export default function Emails() {
         .list({
           userId: "me",
           labelIds: ["INBOX", "UNREAD"],
-          maxResults: 10,
+          maxResults: maxResults,
         })
         .then((listResponse) => {
           const ids = listResponse.result.messages.map((message) => message.id);
@@ -89,8 +90,14 @@ export default function Emails() {
   }, [signedIn, emails]);
 
   function renderEmail(emailId) {
-    console.log(emailId, emails);
-    return emails[emailId].sender;
+    const email = emails[emailId];
+    return (
+      <div className="email-content">
+        <span className="email-sender">{"• " + email.sender + " – "}</span>
+        <span className="email-subject">{email.subject}</span> |{" "}
+        <span className="email-snippet">{email.snippet}</span>
+      </div>
+    );
   }
 
   if (loading) {
@@ -98,7 +105,7 @@ export default function Emails() {
   } else {
     return (
       <div className="emails">
-        <h1>Emails</h1>
+        <h1 className="emails-title">New Emails</h1>
         <ul className="email-list">
           {emailIds.map((id, idx) => (
             <li className="email-item" key={idx}>

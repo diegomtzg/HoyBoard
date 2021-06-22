@@ -57,20 +57,20 @@ function App() {
         </div>
         <div className="main">
           {/* Split main screen into three columns. */}
-          <div className="box main-col main-left">
+          <div className="main-col main-left">
             <Time />
             <News />
           </div>
-          <div className="box main-col main-center">
+          <div className="main-col main-center">
             <Agenda />
             <ToDo />
           </div>
-          <div className="box main-col main-right">
+          <div className="main-col main-right">
             <Weather />
             <Emails />
           </div>
         </div>
-        <div className="box bottom">
+        <div className="bottom">
           <Quotes />
         </div>
       </AccountContext.Provider>
