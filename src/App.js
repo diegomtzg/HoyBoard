@@ -8,6 +8,7 @@ import ToDo from "./components/ToDo";
 import Quotes from "./components/Quotes";
 import Weather from "./components/Weather";
 import Emails from "./components/Emails";
+import NowPlaying from "./components/NowPlaying";
 import AccountMenu from "./components/AccountMenu";
 import AccountContext from "./components/AccountContext";
 
@@ -62,7 +63,8 @@ function App() {
             <News />
           </div>
           <div className="main-col main-center">
-            <Agenda />
+            {/* <Agenda /> */}
+            <NowPlaying />
           </div>
           <div className="main-col main-right">
             <Weather />

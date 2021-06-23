@@ -3,8 +3,8 @@ import AccountContext from "./AccountContext";
 import PulseLoader from "react-spinners/PulseLoader";
 import "../static/css/emails.css";
 
-// Every 5 minutes
-const fetchPeriod = 1000 * 60 * 5;
+// Every minute
+const fetchPeriod = 1000 * 60;
 const maxResults = 4;
 
 export default function Emails() {
@@ -39,9 +39,7 @@ export default function Emails() {
                 id: id,
               })
               .then((detailResponse) => {
-                console.log(detailResponse);
                 var message = detailResponse.result.messages[0];
-
                 var date = message.internalDate;
                 var snippet = message.snippet.replace(/&#39;/g, "'");
                 var subject, sender;
