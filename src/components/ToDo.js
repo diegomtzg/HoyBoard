@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/todo.css";
 
 // Every 30 seconds
@@ -37,7 +37,7 @@ export default function ToDo() {
           {cards.map((card, idx) => (
             <div className="todo-card">
               <li key={idx}>
-                {<FontAwesomeIcon icon={faThumbtack} color={"white"} />}
+                {<FontAwesomeIcon icon={faCheckSquare} color={"white"} />}
                 {` ${card.name}`}
               </li>
             </div>

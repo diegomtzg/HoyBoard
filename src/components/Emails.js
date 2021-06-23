@@ -88,13 +88,15 @@ export default function Emails() {
 
   function renderEmail(emailId) {
     const email = emails[emailId];
-    return (
-      <div className="email-content">
-        <span className="email-sender">{email.sender + " – "}</span>
-        <span className="email-subject">{email.subject}</span> |{" "}
-        <span className="email-snippet">{email.snippet}</span>
-      </div>
-    );
+    if (email !== undefined) {
+      return (
+        <div className="email-content">
+          <span className="email-sender">{email.sender + " – "}</span>
+          <span className="email-subject">{email.subject}</span> |{" "}
+          <span className="email-snippet">{email.snippet}</span>
+        </div>
+      );
+    }
   }
 
   if (loading) {
@@ -104,11 +106,13 @@ export default function Emails() {
       <div className="emails">
         <h1 className="emails-title">New Emails</h1>
         <ul className="email-list">
-          {threadIds.map((id, idx) => (
-            <li className="email-item" key={idx}>
-              {renderEmail(id)}
-            </li>
-          ))}
+          {threadIds.length === 0 && <h3>No new emails!</h3>}
+          {threadIds.length > 0 &&
+            threadIds.map((id, idx) => (
+              <li className="email-item" key={idx}>
+                {renderEmail(id)}
+              </li>
+            ))}
         </ul>
       </div>
     );

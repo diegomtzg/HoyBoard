@@ -17,7 +17,7 @@ export default function News() {
       var reqUrl =
         "https://newsapi.org/v2/top-headlines?" +
         `apiKey=${NEWS_API_KEY}&` +
-        `sources=bbc-news,cnn,google-news,nbc-news,politico,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
+        `sources=bbc-news,cnn,google-news,nbc-news,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
         `pageSize=100`;
       const response = await fetch(reqUrl);
       const news = await response.json();

@@ -84,4 +84,5 @@ body {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  padding-bottom: 2%;
 }

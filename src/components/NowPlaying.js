@@ -4,47 +4,71 @@ import AccountContext from "./AccountContext";
 import "../static/css/nowplaying.css";
 
 export default function NowPlaying() {
-  useEffect(() => {
-    // Get parameters from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    let spotifyCode = urlParams.get("code");
+  const [token, setToken] = useState();
 
-    if (spotifyCode) {
-      // Redirected from spotify, exchange code for access token
-      fetch(`https://accounts.spotify.com/api/token`, {
-        mode: "no-cors",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: {
-          grant_type: "authorization_code",
-          code: spotifyCode,
-          redirect_uri: "http://localhost:3000/",
-          client_id: `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}`,
-          client_secret: `${process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}`,
-        },
-      }).then((response) => {
-        console.log(response);
-      });
+  useEffect(() => {
+    async function fetchSpotifyData() {
+      // Get the hash of the url
+      const hash = window.location.hash
+        .substring(1)
+        .split("&")
+        .reduce(function (initial, item) {
+          if (item) {
+            var parts = item.split("=");
+            initial[parts[0]] = decodeURIComponent(parts[1]);
+          }
+          return initial;
+        }, {});
+      // window.location.hash = "";
+
+      let _token = hash.access_token;
+
+      if (_token) {
+        // Redirected from spotify.
+        setToken(_token);
+      }
+
+      console.log(token);
+
+      console.log(
+        await (
+          await fetch(
+            "https://api.spotify.com/v1/me/player/currently-playing",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            }
+          )
+        ).json()
+      );
     }
-  }, []);
+
+    fetchSpotifyData();
+  }, [token]);
+
+  function renderSpotifyPlayer() {
+    return <h1>Spotify Player</h1>;
+  }
 
   return (
     <div className="nowplaying">
       <h1 className="nowplaying-title">Now Playing</h1>
-      {
+      {!token && (
         <a
           href={
             "https://accounts.spotify.com/authorize?" +
             `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
             `redirect_uri=http://localhost:3000/&` +
-            `scope=user-read-currently-playing&response_type=code`
+            `scope=user-read-currently-playing%20user-read-playback-state&` +
+            `response_type=token`
           }
         >
-          Log in with Spotify
+          Login to Spotify
         </a>
-      }
+      )}
+      {token && renderSpotifyPlayer()}
     </div>
   );
 }
