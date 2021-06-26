@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import GoogleSignInButton from "./Buttons/GoogleSignInButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import PulseLoader from "react-spinners/PulseLoader";
 import AccountContext from "./AccountContext";
 import "../static/css/agenda.css";
@@ -15,7 +17,7 @@ export default function Agenda() {
   useEffect(() => {
     function fetchUpcomingEvents() {
       if (!googleSignedIn) {
-        return <GoogleSignInButton />;
+        return;
       }
 
       console.log("Fetching events...");
@@ -87,6 +89,10 @@ export default function Agenda() {
     }
   }
 
+  function handleSignOut() {
+    window.gapi.auth2.getAuthInstance().signOut();
+  }
+
   function renderEvents() {
     if (events.empty) {
       return <h3 className="no-events">No more events today!</h3>;
@@ -120,8 +126,18 @@ export default function Agenda() {
   } else {
     return (
       <div className="agenda">
-        <h1 className="agenda-title">Today's Events</h1>
-        {renderEvents()}
+        <h1 className="agenda-title">
+          Today's Events
+          {googleSignedIn && (
+            <FontAwesomeIcon
+              className="google-signout-icon"
+              icon={faSignOutAlt}
+              onClick={handleSignOut}
+            />
+          )}
+        </h1>
+
+        {googleSignedIn ? renderEvents() : <GoogleSignInButton />}
       </div>
     );
   }

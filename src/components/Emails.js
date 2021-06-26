@@ -98,13 +98,11 @@ export default function Emails() {
       return "";
     }
 
-    return (
-      window.gapi.auth2
-        .getAuthInstance()
-        .currentUser.get()
-        .getBasicProfile()
-        .getGivenName() + "'s"
-    );
+    return window.gapi.auth2
+      .getAuthInstance()
+      .currentUser.get()
+      .getBasicProfile()
+      .getGivenName();
   }
 
   function renderEmail(emailId) {
@@ -126,15 +124,13 @@ export default function Emails() {
     return (
       <div className="emails">
         <h1 className="emails-title">
-          {getUserName()} New Emails
-          {googleSignedIn ? (
+          New Emails
+          {googleSignedIn && (
             <FontAwesomeIcon
               className="google-signout-icon"
               icon={faSignOutAlt}
               onClick={handleSignOut}
             />
-          ) : (
-            ""
           )}
         </h1>
         {googleSignedIn ? (
