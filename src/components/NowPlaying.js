@@ -31,19 +31,19 @@ export default function NowPlaying() {
           },
         }
       );
-      if (
-        response.status === 401 &&
-        response.message === "Access token expired"
-      ) {
-        console.log(response);
-        // Refresh access token
-        window.location.replace(
-          "https://accounts.spotify.com/authorize?" +
-            `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
-            `redirect_uri=http://localhost:3000/&` +
-            `scope=user-read-currently-playing%20user-read-playback-state&` +
-            `response_type=token`
-        );
+      if (response.status === 401) {
+        let errorJson = await response.json();
+        console.log(errorJson);
+        if (errorJson.error.message === "The access token expired") {
+          // Refresh access token
+          window.location.replace(
+            "https://accounts.spotify.com/authorize?" +
+              `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
+              `redirect_uri=http://localhost:3000/&` +
+              `scope=user-read-currently-playing%20user-read-playback-state&` +
+              `response_type=token`
+          );
+        }
       }
 
       if (response.status === 204) {
