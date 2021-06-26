@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPause,
+  faUser,
+  faPlay,
+  faMusic,
+  faCompactDisc,
+} from "@fortawesome/free-solid-svg-icons";
 import "../static/css/nowplaying.css";
 
 // Once per second
@@ -56,6 +64,8 @@ export default function NowPlaying() {
     }
 
     fetchSpotifyData();
+    const interval = setInterval(fetchSpotifyData, fetchPeriod);
+    return () => clearInterval(interval);
   }, [token]);
 
   function millisToMinutesAndSeconds(millis) {
@@ -73,35 +83,42 @@ export default function NowPlaying() {
     return (
       <div className="now-playing">
         <div className="nowplaying-info">
+          <div className="nowplaying-text">
+            <p className="nowplaying-name text-margin">
+              <FontAwesomeIcon icon={faMusic} /> {song.name}
+            </p>
+            <p className="nowplaying-artist text-margin">
+              <FontAwesomeIcon icon={faUser} />{" "}
+              {song.artists.map((artist) => artist.name).join(", ")}
+            </p>
+            <p className="nowplaying-album text-margin">
+              <FontAwesomeIcon icon={faCompactDisc} /> {song.album.name}
+            </p>
+            <p className="nowplaying-progress-text text-margin">
+              <FontAwesomeIcon icon={song.is_playing ? faPlay : faPause} />{" "}
+              {`${millisToMinutesAndSeconds(
+                progressMs
+              )} / ${millisToMinutesAndSeconds(song.duration_ms)}`}
+            </p>
+          </div>
           <img
             className="nowplaying-artwork"
             src={song.album.images[1].url}
             alt={song.album.name}
           />
-          <div className="nowplaying-text">
-            <p className="nowplaying-name">{song.name}</p>
-            <p className="nowplaying-artist">{song.artists[0].name}</p>
-            <p className="nowplaying-album">{song.album.name}</p>
-          </div>
         </div>
         <div className="nowplaying-progress">
-          <span className="progressbar-left">
-            {millisToMinutesAndSeconds(progressMs)}
-          </span>
           <LinearProgress
             className="progressbar-center"
             variant="determinate"
+            color="primary"
             value={(progressMs * 100) / song.duration_ms}
           />
-          <span className="progressbar-right">
-            {millisToMinutesAndSeconds(song.duration_ms)}
-          </span>
         </div>
       </div>
     );
   }
 
-  console.log(token);
   return (
     <div className="now-playing-container">
       {token === undefined && (

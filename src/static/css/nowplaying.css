@@ -1,4 +1,6 @@
 .now-playing-container {
+  padding-top: 30%;
+  padding-bottom: 20%;
   width: 80%;
 }
 
@@ -10,23 +12,39 @@
 .nowplaying-info {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .nowplaying-text {
   display: flex;
   flex-direction: column;
+  margin-left: 2%;
 }
 
 .nowplaying-artwork {
   width: 100px;
   height: 100px;
+  margin-right: 11%;
 }
 
 .nowplaying-progress {
   display: flex;
   flex-direction: row;
+  margin-top: 5%;
+  width: 100%;
+  padding-left: 10px;
 }
 
 .progressbar-center {
-  width: 50%;
+  width: 85%;
+}
+
+.text-margin {
+  margin: 0;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
 }

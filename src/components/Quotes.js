@@ -12,7 +12,8 @@ export default function Quotes() {
   useEffect(() => {
     async function fetchQuote() {
       console.log("Fetching quote...");
-      var reqUrl = "https://api.quotable.io/random?tags=inspirational";
+      var reqUrl =
+        "https://api.quotable.io/random?tags=inspirational&maxLength=200";
       const response = await fetch(reqUrl);
       const quote = await response.json();
       setQuote(quote);
