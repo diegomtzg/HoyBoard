@@ -17,7 +17,6 @@ export default function NowPlaying() {
   const [token, setToken] = useState();
   const [playing, setPlaying] = useState(false);
   const [song, setSong] = useState();
-  const [progressMs, setProgress] = useState();
 
   useEffect(() => {
     async function fetchSpotifyData() {
@@ -56,9 +55,7 @@ export default function NowPlaying() {
       }
       if (response.status === 200) {
         const nowPlayingJson = await response.json();
-        console.log(nowPlayingJson);
-        setSong(nowPlayingJson.item);
-        setProgress(nowPlayingJson.progress_ms);
+        setSong(nowPlayingJson);
         setPlaying(true);
       }
     }
@@ -85,26 +82,34 @@ export default function NowPlaying() {
         <div className="nowplaying-info">
           <div className="nowplaying-text">
             <p className="nowplaying-name text-margin">
-              <FontAwesomeIcon icon={faMusic} /> {song.name}
+              <FontAwesomeIcon className="nowplaying-icon" icon={faMusic} />{" "}
+              {song.item.name}
             </p>
             <p className="nowplaying-artist text-margin">
-              <FontAwesomeIcon icon={faUser} />{" "}
-              {song.artists.map((artist) => artist.name).join(", ")}
+              <FontAwesomeIcon className="nowplaying-icon" icon={faUser} />{" "}
+              {song.item.artists.map((artist) => artist.name).join(", ")}
             </p>
             <p className="nowplaying-album text-margin">
-              <FontAwesomeIcon icon={faCompactDisc} /> {song.album.name}
+              <FontAwesomeIcon
+                className="nowplaying-icon"
+                icon={faCompactDisc}
+              />{" "}
+              {song.item.album.name}
             </p>
             <p className="nowplaying-progress-text text-margin">
-              <FontAwesomeIcon icon={song.is_playing ? faPlay : faPause} />{" "}
+              <FontAwesomeIcon
+                className="nowplaying-icon"
+                icon={song.is_playing ? faPlay : faPause}
+              />{" "}
               {`${millisToMinutesAndSeconds(
-                progressMs
-              )} / ${millisToMinutesAndSeconds(song.duration_ms)}`}
+                song.progress_ms
+              )} / ${millisToMinutesAndSeconds(song.item.duration_ms)}`}
             </p>
           </div>
           <img
             className="nowplaying-artwork"
-            src={song.album.images[1].url}
-            alt={song.album.name}
+            src={song.item.album.images[1].url}
+            alt={song.item.album.name}
           />
         </div>
         <div className="nowplaying-progress">
@@ -112,7 +117,7 @@ export default function NowPlaying() {
             className="progressbar-center"
             variant="determinate"
             color="primary"
-            value={(progressMs * 100) / song.duration_ms}
+            value={(song.progress_ms * 100) / song.item.duration_ms}
           />
         </div>
       </div>

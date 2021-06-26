@@ -25,7 +25,6 @@
 .nowplaying-artwork {
   width: 100px;
   height: 100px;
-  margin-right: 11%;
 }
 
 .nowplaying-progress {
@@ -37,7 +36,7 @@
 }
 
 .progressbar-center {
-  width: 85%;
+  width: 95%;
 }
 
 .text-margin {
@@ -46,5 +45,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px;
+  max-width: 270px;
+}
+
+.nowplaying-icon {
+  margin-right: 5px;
 }
