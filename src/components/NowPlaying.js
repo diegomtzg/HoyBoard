@@ -31,15 +31,41 @@ export default function NowPlaying() {
           }
           return initial;
         }, {});
-      // window.location.hash = "";
+      window.location.hash = "";
+      let redirectToken = hash.access_token;
 
-      let _token = hash.access_token;
-
-      if (_token) {
+      // If redirectToken here is not null, we redirected from spotify
+      console.log(redirectToken);
+      if (redirectToken !== null && redirectToken !== undefined) {
         // Redirected from spotify.
+        setToken(redirectToken);
+
+        // Store locally
+        window.localStorage.setItem("spotify_token", redirectToken);
+
+        // After 3600s, token is no longer valid.
+        setTimeout(() => {
+          window.localStorage.setItem("spotify_token", null);
+        }, 3600 * 1000);
+      }
+
+      // So we didn't redirect from spotify, let's check if we have a valid token stored locally.
+      // If not, we redirect.
+      let _token = window.localStorage.getItem("spotify_token");
+      if (_token === null || _token === "undefined") {
+        // Redirect to spotify to refresh token. Expires after 3600s.
+        window.location.replace(
+          "https://accounts.spotify.com/authorize?" +
+            `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
+            `redirect_uri=http://localhost:3000/&` +
+            `scope=user-read-currently-playing%20user-read-playback-state&` +
+            `response_type=token`
+        );
+      } else {
         setToken(_token);
       }
 
+      console.log("Fetching spotify data.", token);
       const response = await fetch(
         "https://api.spotify.com/v1/me/player/currently-playing",
         {
