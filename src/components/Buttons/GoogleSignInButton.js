@@ -4,7 +4,7 @@ import "../../static/css/buttons.css";
 
 export default function GoogleSignInButton() {
   function handleSignIn() {
-    window.gapi.auth2.getAuthInstance().signIn();
+    window.gapi.auth2.getAuthInstance().signIn({ prompt: "select_account" });
   }
 
   return (

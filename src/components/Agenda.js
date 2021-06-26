@@ -121,24 +121,20 @@ export default function Agenda() {
     }
   }
 
-  if (loading) {
-    return <PulseLoader color={"#8f8f8f"} loading={loading} />;
-  } else {
-    return (
-      <div className="agenda">
-        <h1 className="agenda-title">
-          Today's Events
-          {googleSignedIn && (
-            <FontAwesomeIcon
-              className="google-signout-icon"
-              icon={faSignOutAlt}
-              onClick={handleSignOut}
-            />
-          )}
-        </h1>
+  return (
+    <div className="agenda">
+      <h1 className="agenda-title">
+        Today's Events
+        {googleSignedIn && (
+          <FontAwesomeIcon
+            className="google-signout-icon"
+            icon={faSignOutAlt}
+            onClick={handleSignOut}
+          />
+        )}
+      </h1>
 
-        {googleSignedIn ? renderEvents() : <GoogleSignInButton />}
-      </div>
-    );
-  }
+      {!loading && googleSignedIn ? renderEvents() : <GoogleSignInButton />}
+    </div>
+  );
 }

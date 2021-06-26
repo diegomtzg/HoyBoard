@@ -118,35 +118,31 @@ export default function Emails() {
     }
   }
 
-  if (loading) {
-    return <PulseLoader color={"#8f8f8f"} loading={loading} />;
-  } else {
-    return (
-      <div className="emails">
-        <h1 className="emails-title">
-          New Emails
-          {googleSignedIn && (
-            <FontAwesomeIcon
-              className="google-signout-icon"
-              icon={faSignOutAlt}
-              onClick={handleSignOut}
-            />
-          )}
-        </h1>
-        {googleSignedIn ? (
-          <ul className="email-list">
-            {threadIds.length === 0 && <h3>No new emails!</h3>}
-            {threadIds.length > 0 &&
-              threadIds.map((id, idx) => (
-                <li className="email-item" key={idx}>
-                  {renderEmail(id)}
-                </li>
-              ))}
-          </ul>
-        ) : (
-          <GoogleSignInButton />
+  return (
+    <div className="emails">
+      <h1 className="emails-title">
+        New Emails
+        {googleSignedIn && (
+          <FontAwesomeIcon
+            className="google-signout-icon"
+            icon={faSignOutAlt}
+            onClick={handleSignOut}
+          />
         )}
-      </div>
-    );
-  }
+      </h1>
+      {!loading && googleSignedIn ? (
+        <ul className="email-list">
+          {threadIds.length === 0 && <h3>No new emails!</h3>}
+          {threadIds.length > 0 &&
+            threadIds.map((id, idx) => (
+              <li className="email-item" key={idx}>
+                {renderEmail(id)}
+              </li>
+            ))}
+        </ul>
+      ) : (
+        <GoogleSignInButton />
+      )}
+    </div>
+  );
 }
