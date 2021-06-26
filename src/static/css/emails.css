@@ -2,6 +2,7 @@
   width: 80%;
   margin-left: 80px;
   margin-top: 5%;
+  text-align: center;
 }
 
 .emails-title {
@@ -10,10 +11,21 @@
   margin-bottom: 10px;
 }
 
+.google-signout-icon {
+  padding-left: 10px;
+  color: white;
+  font-size: 0.8em;
+}
+
+.google-signout-icon:hover {
+  cursor: pointer;
+}
+
 .email-list {
   list-style-type: none;
   padding-left: 0;
   margin-top: 5px;
+  text-align: left;
 }
 
 .email-item {

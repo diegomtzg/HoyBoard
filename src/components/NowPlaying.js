@@ -33,8 +33,9 @@ export default function NowPlaying() {
       );
       if (
         response.status === 401 &&
-        response.message !== "Invalid access token"
+        response.message === "Access token expired"
       ) {
+        console.log(response);
         // Refresh access token
         window.location.replace(
           "https://accounts.spotify.com/authorize?" +

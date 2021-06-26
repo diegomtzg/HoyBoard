@@ -1,0 +1,9 @@
+.google-signin {
+  padding-top: 2%;
+  width: 250px;
+  height: auto;
+}
+
+.google-signin:hover {
+  cursor: pointer;
+}

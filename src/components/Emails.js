@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import GoogleSignInButton from "./Buttons/GoogleSignInButton";
 import AccountContext from "./AccountContext";
 import PulseLoader from "react-spinners/PulseLoader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/emails.css";
 
 // Every minute
@@ -17,7 +19,7 @@ export default function Emails() {
   useEffect(() => {
     function fetchEmails() {
       if (!googleSignedIn) {
-        return <GoogleSignInButton />;
+        return;
       }
 
       console.log("Fetching unread emails...");
@@ -87,6 +89,24 @@ export default function Emails() {
     return () => clearInterval(interval);
   }, [googleSignedIn, emails]);
 
+  function handleSignOut() {
+    window.gapi.auth2.getAuthInstance().signOut();
+  }
+
+  function getUserName() {
+    if (!googleSignedIn) {
+      return "";
+    }
+
+    return (
+      window.gapi.auth2
+        .getAuthInstance()
+        .currentUser.get()
+        .getBasicProfile()
+        .getGivenName() + "'s"
+    );
+  }
+
   function renderEmail(emailId) {
     const email = emails[emailId];
     if (email !== undefined) {
@@ -105,16 +125,31 @@ export default function Emails() {
   } else {
     return (
       <div className="emails">
-        <h1 className="emails-title">New Emails</h1>
-        <ul className="email-list">
-          {threadIds.length === 0 && <h3>No new emails!</h3>}
-          {threadIds.length > 0 &&
-            threadIds.map((id, idx) => (
-              <li className="email-item" key={idx}>
-                {renderEmail(id)}
-              </li>
-            ))}
-        </ul>
+        <h1 className="emails-title">
+          {getUserName()} New Emails
+          {googleSignedIn ? (
+            <FontAwesomeIcon
+              className="google-signout-icon"
+              icon={faSignOutAlt}
+              onClick={handleSignOut}
+            />
+          ) : (
+            ""
+          )}
+        </h1>
+        {googleSignedIn ? (
+          <ul className="email-list">
+            {threadIds.length === 0 && <h3>No new emails!</h3>}
+            {threadIds.length > 0 &&
+              threadIds.map((id, idx) => (
+                <li className="email-item" key={idx}>
+                  {renderEmail(id)}
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <GoogleSignInButton />
+        )}
       </div>
     );
   }
