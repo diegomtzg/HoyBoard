@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import GoogleSignInButton from "./Buttons/GoogleSignInButton";
 import AccountContext from "./AccountContext";
 import PulseLoader from "react-spinners/PulseLoader";
 import "../static/css/emails.css";
@@ -8,15 +9,15 @@ const fetchPeriod = 1000 * 60;
 const maxResults = 4;
 
 export default function Emails() {
-  const { signedIn } = useContext(AccountContext);
+  const { googleSignedIn } = useContext(AccountContext);
   const [threadIds, setThreadIds] = useState([]);
   const [emails, setEmails] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function fetchEmails() {
-      if (!signedIn) {
-        return;
+      if (!googleSignedIn) {
+        return <GoogleSignInButton />;
       }
 
       console.log("Fetching unread emails...");
@@ -84,7 +85,7 @@ export default function Emails() {
     fetchEmails();
     const interval = setInterval(fetchEmails, fetchPeriod);
     return () => clearInterval(interval);
-  }, [signedIn, emails]);
+  }, [googleSignedIn, emails]);
 
   function renderEmail(emailId) {
     const email = emails[emailId];

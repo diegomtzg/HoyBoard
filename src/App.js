@@ -9,11 +9,11 @@ import Quotes from "./components/Quotes";
 import Weather from "./components/Weather";
 import Emails from "./components/Emails";
 import NowPlaying from "./components/NowPlaying";
-import AccountMenu from "./components/AccountMenu";
+import GoogleSignInButton from "./components/Buttons/GoogleSignInButton";
 import AccountContext from "./components/AccountContext";
 
 function App() {
-  const [signedIn, setSignedIn] = useState(false);
+  const [googleSignedIn, setGoogleSignedIn] = useState(false);
 
   useEffect(() => {
     function initGoogleClient() {
@@ -34,11 +34,13 @@ function App() {
           window.gapi.auth2
             .getAuthInstance()
             .isSignedIn.listen((isSignedIn) => {
-              setSignedIn(isSignedIn);
+              setGoogleSignedIn(isSignedIn);
             });
 
           // Handle the initial sign-in state.
-          setSignedIn(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+          setGoogleSignedIn(
+            window.gapi.auth2.getAuthInstance().isSignedIn.get()
+          );
         });
     }
 
@@ -52,10 +54,7 @@ function App() {
         <source src={daynight} type="video/webm" />
       </video>
 
-      <AccountContext.Provider value={{ signedIn }}>
-        <div className="navbar">
-          <AccountMenu />
-        </div>
+      <AccountContext.Provider value={{ googleSignedIn }}>
         <div className="main">
           {/* Split main screen into three columns. */}
           <div className="main-col main-left">

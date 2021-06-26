@@ -20,52 +20,8 @@ export default function NowPlaying() {
 
   useEffect(() => {
     async function fetchSpotifyData() {
-      // Get the hash of the url
-      const hash = window.location.hash
-        .substring(1)
-        .split("&")
-        .reduce(function (initial, item) {
-          if (item) {
-            var parts = item.split("=");
-            initial[parts[0]] = decodeURIComponent(parts[1]);
-          }
-          return initial;
-        }, {});
-      window.location.hash = "";
-      let redirectToken = hash.access_token;
+      getSpotifyToken();
 
-      // If redirectToken here is not null, we redirected from spotify
-      console.log(redirectToken);
-      if (redirectToken !== null && redirectToken !== undefined) {
-        // Redirected from spotify.
-        setToken(redirectToken);
-
-        // Store locally
-        window.localStorage.setItem("spotify_token", redirectToken);
-
-        // After 3600s, token is no longer valid.
-        setTimeout(() => {
-          window.localStorage.setItem("spotify_token", null);
-        }, 3600 * 1000);
-      }
-
-      // So we didn't redirect from spotify, let's check if we have a valid token stored locally.
-      // If not, we redirect.
-      let _token = window.localStorage.getItem("spotify_token");
-      if (_token === null || _token === "undefined") {
-        // Redirect to spotify to refresh token. Expires after 3600s.
-        window.location.replace(
-          "https://accounts.spotify.com/authorize?" +
-            `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
-            `redirect_uri=http://localhost:3000/&` +
-            `scope=user-read-currently-playing%20user-read-playback-state&` +
-            `response_type=token`
-        );
-      } else {
-        setToken(_token);
-      }
-
-      console.log("Fetching spotify data.", token);
       const response = await fetch(
         "https://api.spotify.com/v1/me/player/currently-playing",
         {
@@ -75,6 +31,20 @@ export default function NowPlaying() {
           },
         }
       );
+      if (
+        response.status === 401 &&
+        response.message !== "Invalid access token"
+      ) {
+        // Refresh access token
+        window.location.replace(
+          "https://accounts.spotify.com/authorize?" +
+            `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
+            `redirect_uri=http://localhost:3000/&` +
+            `scope=user-read-currently-playing%20user-read-playback-state&` +
+            `response_type=token`
+        );
+      }
+
       if (response.status === 204) {
         // If playing nothing, status is 204.
         setPlaying(false);
@@ -90,6 +60,53 @@ export default function NowPlaying() {
     const interval = setInterval(fetchSpotifyData, fetchPeriod);
     return () => clearInterval(interval);
   }, [token]);
+
+  // Very hacky way of refreshing token every hour...
+  function getSpotifyToken() {
+    // Get the hash of the url
+    const hash = window.location.hash
+      .substring(1)
+      .split("&")
+      .reduce(function (initial, item) {
+        if (item) {
+          var parts = item.split("=");
+          initial[parts[0]] = decodeURIComponent(parts[1]);
+        }
+        return initial;
+      }, {});
+    window.location.hash = "";
+    let redirectToken = hash.access_token;
+
+    // If redirectToken here is not null, we redirected from spotify
+    if (redirectToken !== null && redirectToken !== undefined) {
+      // Redirected from spotify.
+      setToken(redirectToken);
+
+      // Store locally
+      window.localStorage.setItem("spotify_token", redirectToken);
+
+      // After 3600s, token is no longer valid.
+      setTimeout(() => {
+        window.localStorage.setItem("spotify_token", null);
+      }, 3600 * 1000);
+    }
+
+    // So we didn't redirect from spotify, let's check if we have a valid token stored locally.
+    // If not, we redirect.
+    let _token = window.localStorage.getItem("spotify_token");
+    if (_token === null || _token === "undefined") {
+      // Redirect to spotify to refresh token. Expires after 3600s.
+      window.location.replace(
+        "https://accounts.spotify.com/authorize?" +
+          `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
+          `redirect_uri=http://localhost:3000/&` +
+          `scope=user-read-currently-playing%20user-read-playback-state&` +
+          `response_type=token`
+      );
+    } else {
+      setToken(_token);
+    }
+  }
 
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);

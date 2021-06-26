@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import GoogleSignInButton from "./Buttons/GoogleSignInButton";
 import PulseLoader from "react-spinners/PulseLoader";
 import AccountContext from "./AccountContext";
 import "../static/css/agenda.css";
@@ -7,14 +8,14 @@ import "../static/css/agenda.css";
 const fetchPeriod = 1000 * 60;
 
 export default function Agenda() {
-  const { signedIn } = useContext(AccountContext);
+  const { googleSignedIn } = useContext(AccountContext);
   const [events, setEvents] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function fetchUpcomingEvents() {
-      if (!signedIn) {
-        return;
+      if (!googleSignedIn) {
+        return <GoogleSignInButton />;
       }
 
       console.log("Fetching events...");
@@ -42,7 +43,7 @@ export default function Agenda() {
     fetchUpcomingEvents();
     const interval = setInterval(fetchUpcomingEvents, fetchPeriod);
     return () => clearInterval(interval);
-  }, [signedIn]);
+  }, [googleSignedIn]);
 
   function sortEvents(items) {
     var sortedEvents = { allDay: [], regular: [], empty: false };
