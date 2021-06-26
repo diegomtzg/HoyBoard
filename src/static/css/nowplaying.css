@@ -1,0 +1,32 @@
+.now-playing-container {
+  width: 80%;
+}
+
+.now-playing {
+  display: flex;
+  flex-direction: column;
+}
+
+.nowplaying-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.nowplaying-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nowplaying-artwork {
+  width: 100px;
+  height: 100px;
+}
+
+.nowplaying-progress {
+  display: flex;
+  flex-direction: row;
+}
+
+.progressbar-center {
+  width: 50%;
+}
