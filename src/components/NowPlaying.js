@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import PulseLoader from "react-spinners/PulseLoader";
-import AccountContext from "./AccountContext";
+import React, { useState, useEffect } from "react";
 import "../static/css/nowplaying.css";
 
 export default function NowPlaying() {
@@ -30,6 +28,7 @@ export default function NowPlaying() {
 
       console.log(token);
 
+      // TODO: No response (status 204) if nothing playing
       console.log(
         await (
           await fetch(

@@ -17,7 +17,7 @@ export default function News() {
       var reqUrl =
         "https://newsapi.org/v2/top-headlines?" +
         `apiKey=${NEWS_API_KEY}&` +
-        `sources=bbc-news,cnn,google-news,nbc-news,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
+        `sources=bbc-news,cnn,nbc-news,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
         `pageSize=100`;
       const response = await fetch(reqUrl);
       const news = await response.json();
@@ -45,17 +45,15 @@ export default function News() {
         <h1 className="news-title">Today's Headlines</h1>
         <ul className="news-list">
           {randomNumbers.map((randomNumber, idx) => (
-            <div className="news-headline">
-              <li key={idx}>
-                <span className="news-source">{`${news.articles[randomNumber].source.name} – `}</span>
-                <span className="news-title">
-                  {news.articles[randomNumber].title}
-                </span>
-                <p className="news-description">
-                  {news.articles[randomNumber].description}
-                </p>
-              </li>
-            </div>
+            <li className="news-headline" key={idx}>
+              <span className="news-source">{`${news.articles[randomNumber].source.name} – `}</span>
+              <span className="news-title">
+                {news.articles[randomNumber].title}
+              </span>
+              <p className="news-description">
+                {news.articles[randomNumber].description}
+              </p>
+            </li>
           ))}
         </ul>
       </div>

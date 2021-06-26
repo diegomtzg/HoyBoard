@@ -20,6 +20,8 @@
 
 .event-name {
   font-weight: bold;
+  max-width: 250px;
+  word-wrap: break-word;
 }
 
 .event-details {

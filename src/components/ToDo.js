@@ -35,12 +35,10 @@ export default function ToDo() {
       return (
         <ul className="todo-list">
           {cards.map((card, idx) => (
-            <div className="todo-card">
-              <li key={idx}>
-                {<FontAwesomeIcon icon={faCheckSquare} color={"white"} />}
-                {` ${card.name}`}
-              </li>
-            </div>
+            <li className="todo-card" key={idx}>
+              {<FontAwesomeIcon icon={faCheckSquare} color={"white"} />}
+              {` ${card.name}`}
+            </li>
           ))}
         </ul>
       );
