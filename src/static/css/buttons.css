@@ -8,10 +8,6 @@
   cursor: pointer;
 }
 
-.google-signout-icon:hover {
-  color: gray;
-}
-
 .trello-login-button {
   margin-top: 5%;
   margin-bottom: 10%;

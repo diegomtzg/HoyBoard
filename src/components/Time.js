@@ -35,7 +35,7 @@ export default function Time() {
 
       // Time controls background video playback.
       var video = document.getElementById("background-video");
-      video.playbackRate = 0.1;
+      video.playbackRate = 0.4;
     }
 
     updateTime();

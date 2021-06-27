@@ -8,7 +8,7 @@ import "../static/css/emails.css";
 
 // Every minute
 const fetchPeriod = 1000 * 60;
-const maxResults = 3;
+const maxResults = 4;
 
 export default function Emails() {
   const { googleSignedIn } = useContext(AccountContext);

@@ -1,5 +1,5 @@
 .news {
-  margin-top: 20%;
+  margin-top: 10%;
   width: 80%;
 }
 
@@ -30,7 +30,7 @@
   font-size: 80%;
   width: 100%;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

@@ -18,9 +18,13 @@
 
 .todo-card {
   font-size: 1.2em;
-  padding-top: 4px;
+  padding-top: 6px;
   padding-left: 10%;
   text-align: left;
+}
+
+.card-name {
+  font-weight: bold;
 }
 
 .todo-empty {
@@ -28,14 +32,15 @@
 }
 
 .trello-signout-icon {
-  padding-left: 10px;
-  color: white;
-  font-size: 0.8em;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  color: #b6bce2;
+  font-size: 0.5em;
 }
 
 .trello-signout-icon:hover {
   cursor: pointer;
-  color: gray;
+  color: #4051b5;
 }
 
 .loader {
