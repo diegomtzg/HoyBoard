@@ -2,7 +2,7 @@
 
 > /jöi bôrd/
 > 
-> A daily information dashboard with current weather, daily agenda, to-do item, now-playing music, curated news, unread emails and even motivational quotes, all in one place.
+> A daily information dashboard with current weather, daily agenda, to-do items, now-playing music, curated news, unread emails and even motivational quotes, all in one place.
 
 ## Features
 
