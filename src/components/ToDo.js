@@ -6,9 +6,10 @@ import TrelloSignInButton from "./Buttons/TrelloSigninButton";
 import "../static/css/todo.css";
 import { Trello } from "react-trello-client";
 
-// Every 30 seconds
-const fetchPeriod = 1000 * 30;
+// Every minute
+const fetchPeriod = 1000 * 60;
 
+// https://trello.com/app-key
 export default function ToDo() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);

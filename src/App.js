@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import daynight from "./static/videos/daynight.webm";
 
 import Time from "./components/Time";
-// import News from "./components/News";
+import News from "./components/News";
 import Agenda from "./components/Agenda";
 import ToDo from "./components/ToDo";
 import Quotes from "./components/Quotes";
@@ -10,6 +10,9 @@ import Weather from "./components/Weather";
 import Emails from "./components/Emails";
 import NowPlaying from "./components/NowPlaying";
 import AccountContext from "./components/AccountContext";
+
+// export var redirect_uri = "https://hoyboard.diegomartinez.me";
+export var redirect_uri = "http://localhost:3000/";
 
 function App() {
   const [googleSignedIn, setGoogleSignedIn] = useState(false);
@@ -58,7 +61,7 @@ function App() {
           {/* Split main screen into three columns. */}
           <div className="main-col main-left">
             <Time />
-            {/* <News /> */}
+            <News />
           </div>
           <div className="main-col main-center">
             <NowPlaying />

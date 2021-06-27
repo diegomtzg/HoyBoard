@@ -9,10 +9,12 @@ import {
   faCompactDisc,
 } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/nowplaying.css";
+import { redirect_uri } from "../App";
 
 // Once per second
 const fetchPeriod = 1000;
 
+// https://developer.spotify.com/dashboard/applications/
 export default function NowPlaying() {
   const [token, setToken] = useState();
   const [playing, setPlaying] = useState(false);
@@ -38,7 +40,7 @@ export default function NowPlaying() {
           window.location.replace(
             "https://accounts.spotify.com/authorize?" +
               `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
-              `redirect_uri=https://hoyboard.netlify.app&` +
+              `redirect_uri=${redirect_uri}&` +
               `scope=user-read-currently-playing%20user-read-playback-state&` +
               `response_type=token`
           );
@@ -99,7 +101,7 @@ export default function NowPlaying() {
       window.location.replace(
         "https://accounts.spotify.com/authorize?" +
           `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
-          `redirect_uri=https://hoyboard.netlify.app&` +
+          `redirect_uri=${redirect_uri}&` +
           `scope=user-read-currently-playing%20user-read-playback-state&` +
           `response_type=token`
       );
