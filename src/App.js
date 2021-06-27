@@ -9,7 +9,6 @@ import Quotes from "./components/Quotes";
 import Weather from "./components/Weather";
 import Emails from "./components/Emails";
 import NowPlaying from "./components/NowPlaying";
-import GoogleSignInButton from "./components/Buttons/GoogleSignInButton";
 import AccountContext from "./components/AccountContext";
 
 function App() {

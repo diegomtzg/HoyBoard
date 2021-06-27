@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import CircleLoader from "react-spinners/CircleLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
-import { faTrello } from "@fortawesome/free-brands-svg-icons";
+import { faCheckSquare, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import TrelloSignInButton from "./Buttons/TrelloSigninButton";
 import "../static/css/todo.css";
+import { Trello } from "react-trello-client";
 
 // Every 30 seconds
 const fetchPeriod = 1000 * 30;
@@ -12,33 +12,43 @@ const fetchPeriod = 1000 * 30;
 export default function ToDo() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [trelloSignedIn, setTrelloSignedIn] = useState(false);
 
   useEffect(() => {
     async function fetchTrelloCards() {
+      if (!trelloSignedIn) {
+        return;
+      }
       console.log("Fetching Trello cards...");
 
-      let authResponse = await fetch(
-        `https://trello.com/1/authorize?` +
-          `scope=read&response_type=token&expiration=never&name=HoyBoard&` +
-          `key=${process.env.REACT_APP_TRELLO_API_KEY}`
-      );
-      // let authJson = await authResponse.json();
-      // console.log(authJson);
+      // Use first board whose name contains "To Do" (case sensitive)
+      window.Trello.get(
+        "members/me/boards",
+        (boards) => {
+          if (boards.length > 0) {
+            let todoBoard = boards.find((board) =>
+              board.name.includes("To Do")
+            );
 
-      var cardsReqUrl =
-        "https://api.trello.com/1/boards/" +
-        `${process.env.REACT_APP_TRELLO_BOARD_ID}/cards?` +
-        `key=${process.env.REACT_APP_TRELLO_API_KEY}&` +
-        `token=${process.env.REACT_APP_TRELLO_TOKEN}`;
-      const cardsResponse = await fetch(cardsReqUrl);
-      setCards(await cardsResponse.json());
-      setLoading(false);
+            // Get cards from the To Do board
+            window.Trello.get(
+              `boards/${todoBoard.id}/cards`,
+              (cards) => {
+                setCards(cards);
+                setLoading(false);
+              },
+              (error) => console.log(error)
+            );
+          }
+        },
+        (error) => console.log(error)
+      );
     }
 
     fetchTrelloCards();
     const interval = setInterval(fetchTrelloCards, fetchPeriod);
     return () => clearInterval(interval);
-  }, []);
+  }, [trelloSignedIn]);
 
   function renderCards() {
     if (cards.length > 0) {
@@ -57,18 +67,36 @@ export default function ToDo() {
     }
   }
 
-  // return <TrelloSignInButton />;
-  if (loading) {
-    return (
-      <div className="loader">
-        <CircleLoader size={100} color={"#F50057"} loading={loading} />
-      </div>
-    );
+  if (trelloSignedIn) {
+    if (loading) {
+      return (
+        <div className="loader">
+          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="todo">
+          <h1 className="todo-title">
+            To Do List
+            <FontAwesomeIcon
+              className="trello-signout-icon"
+              icon={faSignOutAlt}
+              onClick={() => {
+                Trello.deauthorize();
+                setTrelloSignedIn(false);
+              }}
+            />
+          </h1>
+          {renderCards()}
+        </div>
+      );
+    }
   } else {
     return (
       <div className="todo">
         <h1 className="todo-title">To Do List</h1>
-        {renderCards()}
+        <TrelloSignInButton signoutFunction={setTrelloSignedIn} />
       </div>
     );
   }

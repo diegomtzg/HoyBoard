@@ -12,5 +12,12 @@
   color: gray;
 }
 
-.trello-signin {
+.trello-login-button {
+  margin-top: 5%;
+  margin-bottom: 10%;
+  margin-left: 0 !important;
+}
+
+.trello-login-button:after {
+  content: " Login with Trello";
 }

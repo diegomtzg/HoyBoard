@@ -19,6 +19,7 @@
     "react-google-calendar-api": "^1.4.0",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
+    "react-trello-client": "^1.1.6",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

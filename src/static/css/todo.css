@@ -2,6 +2,7 @@
   width: 80%;
   margin-top: 15%;
   margin-left: 80px;
+  text-align: center;
 }
 
 .todo-title {
@@ -24,6 +25,17 @@
 
 .todo-empty {
   font-size: 1.3em;
+}
+
+.trello-signout-icon {
+  padding-left: 10px;
+  color: white;
+  font-size: 0.8em;
+}
+
+.trello-signout-icon:hover {
+  cursor: pointer;
+  color: gray;
 }
 
 .loader {
