@@ -20,6 +20,7 @@ export default function News() {
         `sources=bbc-news,cnn,nbc-news,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&` +
         `pageSize=100`;
       const response = await fetch(reqUrl);
+      console.log(response);
       const news = await response.json();
       setNews(news);
       setLoading(false);
