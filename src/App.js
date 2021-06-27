@@ -58,7 +58,7 @@ function App() {
           {/* Split main screen into three columns. */}
           <div className="main-col main-left">
             <Time />
-            <News />
+            {/* <News /> */}
           </div>
           <div className="main-col main-center">
             <NowPlaying />
