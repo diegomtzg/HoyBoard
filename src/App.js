@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import daynight from "./static/videos/daynight.webm";
 
 import Time from "./components/Time";
-import News from "./components/News";
+// import News from "./components/News";
 import Agenda from "./components/Agenda";
 import ToDo from "./components/ToDo";
 import Quotes from "./components/Quotes";
