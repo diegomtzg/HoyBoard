@@ -1,5 +1,5 @@
 .agenda {
-  width: 80%;
+  width: 90%;
   text-align: center;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .event-item {
-  font-size: 1.05em;
+  font-size: 1.1em;
   padding: 4px 0;
 }
 

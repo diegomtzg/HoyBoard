@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import GoogleSignInButton from "./Buttons/GoogleSignInButton";
 import AccountContext from "./AccountContext";
-import PulseLoader from "react-spinners/PulseLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/emails.css";
 
 // Every minute
 const fetchPeriod = 1000 * 60;
-const maxResults = 4;
+const maxResults = 3;
 
 export default function Emails() {
   const { googleSignedIn } = useContext(AccountContext);

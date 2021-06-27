@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PulseLoader from "react-spinners/PulseLoader";
+import quotes from "../static/quotes.json";
 import "../static/css/quotes.css";
 
 // Every 5 minutes
@@ -7,17 +7,12 @@ const fetchPeriod = 1000 * 60 * 5;
 
 export default function Quotes() {
   const [quote, setQuote] = useState({});
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchQuote() {
-      console.log("Fetching quote...");
-      var reqUrl =
-        "https://api.quotable.io/random?tags=inspirational&maxLength=80&minLength=30";
-      const response = await fetch(reqUrl);
-      const quote = await response.json();
-      setQuote(quote);
-      setLoading(false);
+      // Pick a random quote from local file
+      var num = Math.floor(Math.random() * (quotes.length - 1));
+      setQuote(quotes[num]);
     }
 
     fetchQuote();
@@ -25,14 +20,10 @@ export default function Quotes() {
     return () => clearInterval(interval);
   }, []);
 
-  if (loading) {
-    return <PulseLoader color={"#8f8f8f"} loading={loading} />;
-  } else {
-    return (
-      <div className="quotes">
-        <p className="quote">"{quote.content}"</p>
-        <p className="author">– {quote.author}</p>
-      </div>
-    );
-  }
+  return (
+    <div className="quotes">
+      <p className="quote">"{quote.quote}"</p>
+      <p className="author">– {quote.author}</p>
+    </div>
+  );
 }
