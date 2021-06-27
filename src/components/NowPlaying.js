@@ -38,7 +38,7 @@ export default function NowPlaying() {
           window.location.replace(
             "https://accounts.spotify.com/authorize?" +
               `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
-              `redirect_uri=http://localhost:3000/&` +
+              `redirect_uri=https://nervous-pare-be4e0d.netlify.app&` +
               `scope=user-read-currently-playing%20user-read-playback-state&` +
               `response_type=token`
           );
