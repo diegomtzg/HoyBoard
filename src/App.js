@@ -10,6 +10,7 @@ import Weather from "./components/Weather";
 import Emails from "./components/Emails";
 import NowPlaying from "./components/NowPlaying";
 import AccountContext from "./components/AccountContext";
+import ReactGA from "react-ga";
 
 export var redirect_uri = "https://hoyboard.diegomartinez.me";
 // export var redirect_uri = "http://localhost:3000/";
@@ -48,6 +49,10 @@ function App() {
 
     // Request auth2 library after component mounts.
     window.gapi.load("client:auth2", initGoogleClient);
+
+    // Initialize site analytics
+    ReactGA.initialize(process.env.REACT_APP_GA_KEY);
+    ReactGA.pageview("hoyboard");
   }, []);
 
   return (
