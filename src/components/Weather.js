@@ -23,7 +23,7 @@ export default function Weather() {
       );
 
       var reqUrl =
-        `https://api.weatherapi.com/v1/current.json?` +
+        `http://api.weatherapi.com/v1/current.json?` +
         `key=${WEATHER_API_KEY}&` +
         `q=${coords.latitude},${coords.longitude}&` +
         `aqi=no`;
