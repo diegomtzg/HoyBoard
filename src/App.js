@@ -19,7 +19,7 @@ function App() {
     function initGoogleClient() {
       window.gapi.client
         .init({
-          apiKey: process.env.REACT_APP_GCAL_API_KEY,
+          apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
           clientId: process.env.REACT_APP_GCAL_CLIENT_ID,
           discoveryDocs: [
             "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",

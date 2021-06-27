@@ -160,7 +160,7 @@ export default function NowPlaying() {
           <LinearProgress
             className="progressbar-center"
             variant="determinate"
-            color="primary"
+            color="secondary"
             value={(song.progress_ms * 100) / song.item.duration_ms}
           />
         </div>

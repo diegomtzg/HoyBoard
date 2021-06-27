@@ -25,3 +25,9 @@
 .todo-empty {
   font-size: 1.3em;
 }
+
+.loader {
+  padding-top: 10%;
+  padding-bottom: 25%;
+  padding-right: 50%;
+}

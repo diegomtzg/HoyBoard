@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import GoogleSignInButton from "./Buttons/GoogleSignInButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import PulseLoader from "react-spinners/PulseLoader";
+import CircleLoader from "react-spinners/CircleLoader";
 import AccountContext from "./AccountContext";
 import "../static/css/agenda.css";
 
@@ -121,20 +121,34 @@ export default function Agenda() {
     }
   }
 
-  return (
-    <div className="agenda">
-      <h1 className="agenda-title">
-        Today's Events
-        {googleSignedIn && (
-          <FontAwesomeIcon
-            className="google-signout-icon"
-            icon={faSignOutAlt}
-            onClick={handleSignOut}
-          />
-        )}
-      </h1>
-
-      {!loading && googleSignedIn ? renderEvents() : <GoogleSignInButton />}
-    </div>
-  );
+  if (googleSignedIn) {
+    if (loading) {
+      return (
+        <div className="agenda loader">
+          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="agenda">
+          <h1 className="agenda-title">
+            Today's Events
+            <FontAwesomeIcon
+              className="google-signout-icon"
+              icon={faSignOutAlt}
+              onClick={handleSignOut}
+            />
+          </h1>
+          {renderEvents()}
+        </div>
+      );
+    }
+  } else {
+    return (
+      <div className="agenda">
+        <h1 className="agenda-title">New Emails</h1>
+        <GoogleSignInButton />
+      </div>
+    );
+  }
 }

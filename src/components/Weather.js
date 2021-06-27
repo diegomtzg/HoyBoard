@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PulseLoader from "react-spinners/PulseLoader";
+import CircleLoader from "react-spinners/CircleLoader";
 import "../static/css/weather.css";
 
 // Every 10 minutes
@@ -40,7 +40,11 @@ export default function Weather() {
 
   function renderWeather() {
     if (loading) {
-      return <PulseLoader color={"#8f8f8f"} loading={loading} />;
+      return (
+        <div className="loader">
+          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        </div>
+      );
     } else {
       return (
         <div className="weather">
@@ -66,6 +70,5 @@ export default function Weather() {
     }
   }
 
-  // TODO: You can use weather.current.is_day to switch between light/dark mode.
   return renderWeather();
 }

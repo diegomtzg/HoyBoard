@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PulseLoader from "react-spinners/PulseLoader";
+import CircleLoader from "react-spinners/CircleLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/todo.css";
@@ -48,7 +48,11 @@ export default function ToDo() {
   }
 
   if (loading) {
-    return <PulseLoader color={"#8f8f8f"} loading={loading} />;
+    return (
+      <div className="loader">
+        <CircleLoader size={100} color={"#F50057"} loading={loading} />
+      </div>
+    );
   } else {
     return (
       <div className="todo">

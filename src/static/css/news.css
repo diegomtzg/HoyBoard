@@ -34,3 +34,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.loader {
+  padding-top: 30%;
+  padding-left: 18%;
+}
