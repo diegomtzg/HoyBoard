@@ -146,7 +146,7 @@ export default function Agenda() {
   } else {
     return (
       <div className="agenda">
-        <h1 className="agenda-title">New Emails</h1>
+        <h1 className="agenda-title">Today's Events</h1>
         <GoogleSignInButton />
       </div>
     );

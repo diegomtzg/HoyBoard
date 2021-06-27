@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import CircleLoader from "react-spinners/CircleLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrello } from "@fortawesome/free-brands-svg-icons";
+import TrelloSignInButton from "./Buttons/TrelloSigninButton";
 import "../static/css/todo.css";
 
 // Every 30 seconds
@@ -14,6 +16,14 @@ export default function ToDo() {
   useEffect(() => {
     async function fetchTrelloCards() {
       console.log("Fetching Trello cards...");
+
+      let authResponse = await fetch(
+        `https://trello.com/1/authorize?` +
+          `scope=read&response_type=token&expiration=never&name=HoyBoard&` +
+          `key=${process.env.REACT_APP_TRELLO_API_KEY}`
+      );
+      // let authJson = await authResponse.json();
+      // console.log(authJson);
 
       var cardsReqUrl =
         "https://api.trello.com/1/boards/" +
@@ -47,6 +57,7 @@ export default function ToDo() {
     }
   }
 
+  // return <TrelloSignInButton />;
   if (loading) {
     return (
       <div className="loader">
