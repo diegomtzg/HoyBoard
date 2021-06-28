@@ -30,7 +30,6 @@ export default function Emails() {
           maxResults: maxResults,
         })
         .then((listResponse) => {
-          console.log(listResponse);
           if (listResponse.result.resultSizeEstimate === 0) {
             setLoading(false);
           }
