@@ -26,6 +26,10 @@ export default function NowPlaying() {
     async function fetchSpotifyData() {
       getSpotifyToken();
 
+      if (!token) {
+        return;
+      }
+
       const response = await fetch(
         "https://api.spotify.com/v1/me/player/currently-playing",
         {
@@ -35,6 +39,8 @@ export default function NowPlaying() {
           },
         }
       );
+      if (!response.ok) {
+      }
       if (response.status === 401) {
         let errorJson = await response.json();
         if (errorJson.error.message === "The access token expired") {
