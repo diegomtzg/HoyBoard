@@ -16,7 +16,7 @@ export default function TrelloSignInButton(props) {
       authorizeExpiration="never"
       authorizeOnSuccess={() => props.signoutFunction(true)}
       authorizeOnError={(error) => console.log("Login error!", error)}
-      autoAuthorize={true}
+      autoAuthorize={false}
       authorizeButton={true}
       buttonStyle="metamorph"
       buttonText={<FontAwesomeIcon icon={faTrello} />}

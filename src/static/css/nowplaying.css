@@ -3,11 +3,16 @@
   padding-bottom: 15%;
   width: 90%;
   min-height: 158px;
+  text-align: center;
 }
 
 .now-playing {
   display: flex;
   flex-direction: column;
+}
+
+.nowplaying-title {
+  text-align: center;
 }
 
 .nowplaying-info {
@@ -22,6 +27,7 @@
   flex-direction: column;
   margin-left: 2%;
   font-size: 1.2em;
+  text-align: left;
 }
 
 .nowplaying-artwork {
@@ -33,7 +39,7 @@
 .nowplaying-progress {
   display: flex;
   flex-direction: row;
-  margin-top: 5%;
+  margin-top: 3%;
   width: 100%;
   padding-left: 10px;
 }
@@ -53,4 +59,16 @@
 
 .nowplaying-icon {
   margin-right: 5px;
+}
+
+.spotify-signout-icon {
+  padding-left: 5px;
+  padding-bottom: 2px;
+  color: #b6bce2;
+  font-size: 0.5em;
+}
+
+.spotify-signout-icon:hover {
+  cursor: pointer;
+  color: #4051b5;
 }

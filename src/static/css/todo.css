@@ -30,7 +30,8 @@
 .todo-empty {
   text-align: center;
   font-size: 1.4em;
-  color: gray;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: oblique;
   font-weight: bold;
 }
 

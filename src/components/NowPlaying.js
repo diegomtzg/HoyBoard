@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SpotifySigninButton from "./Buttons/SpotifySignInButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,6 +8,7 @@ import {
   faPlay,
   faMusic,
   faCompactDisc,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/nowplaying.css";
 import { redirect_uri } from "../App";
@@ -37,11 +39,12 @@ export default function NowPlaying() {
         let errorJson = await response.json();
         if (errorJson.error.message === "The access token expired") {
           // Refresh access token
-          window.location.replace(
+          window.location.assign(
             "https://accounts.spotify.com/authorize?" +
               `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
               `redirect_uri=${redirect_uri}&` +
               `scope=user-read-currently-playing%20user-read-playback-state&` +
+              `show_dialog=true&` +
               `response_type=token`
           );
         }
@@ -91,22 +94,6 @@ export default function NowPlaying() {
       setTimeout(() => {
         window.localStorage.setItem("spotify_token", null);
       }, 3600 * 1000);
-    }
-
-    // So we didn't redirect from spotify, let's check if we have a valid token stored locally.
-    // If not, we redirect.
-    let _token = window.localStorage.getItem("spotify_token");
-    if (_token === null || _token === "undefined") {
-      // Redirect to spotify to refresh token. Expires after 3600s.
-      window.location.replace(
-        "https://accounts.spotify.com/authorize?" +
-          `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
-          `redirect_uri=${redirect_uri}&` +
-          `scope=user-read-currently-playing%20user-read-playback-state&` +
-          `response_type=token`
-      );
-    } else {
-      setToken(_token);
     }
   }
 
@@ -169,9 +156,23 @@ export default function NowPlaying() {
     );
   }
 
+  function handleSignOut() {
+    setToken(null);
+  }
+
   return (
     <div className="now-playing-container">
-      {token !== undefined && renderSpotifyPlayer()}
+      <h1 className="nowplaying-title">
+        Now Playing
+        {token && (
+          <FontAwesomeIcon
+            className="trello-signout-icon"
+            icon={faSignOutAlt}
+            onClick={handleSignOut}
+          />
+        )}
+      </h1>
+      {token ? renderSpotifyPlayer() : <SpotifySigninButton />}
     </div>
   );
 }
