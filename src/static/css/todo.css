@@ -28,7 +28,10 @@
 }
 
 .todo-empty {
-  font-size: 1.3em;
+  text-align: center;
+  font-size: 1.4em;
+  color: #4051b5;
+  font-weight: bold;
 }
 
 .trello-signout-icon {

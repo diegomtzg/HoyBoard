@@ -52,7 +52,6 @@ export default function ToDo() {
   }, [trelloSignedIn]);
 
   function renderCards() {
-    console.log(cards);
     if (cards.length > 0) {
       return (
         <ul className="todo-list">

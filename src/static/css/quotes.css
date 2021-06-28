@@ -8,6 +8,8 @@
 .quote {
   font-style: italic;
   font-size: 1.2em;
+  max-width: 700px;
+  word-wrap: break-word;
   margin: 0;
 }
 

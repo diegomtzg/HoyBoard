@@ -30,6 +30,10 @@ export default function Emails() {
           maxResults: maxResults,
         })
         .then((listResponse) => {
+          console.log(listResponse);
+          if (listResponse.result.resultSizeEstimate === 0) {
+            setLoading(false);
+          }
           const ids = listResponse.result.threads.map((thread) => thread.id);
           setThreadIds(ids);
 
@@ -125,7 +129,9 @@ export default function Emails() {
             />
           </h1>
           <ul className="email-list">
-            {threadIds.length === 0 && <h3>No new emails!</h3>}
+            {threadIds.length === 0 && (
+              <h3 className="no-emails">No new emails!</h3>
+            )}
             {threadIds.length > 0 &&
               threadIds.map((id, idx) => (
                 <li className="email-item" key={idx}>

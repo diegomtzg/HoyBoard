@@ -55,6 +55,12 @@
   overflow: hidden;
 }
 
+.no-emails {
+  text-align: center;
+  font-size: 1.4em;
+  color: #4051b5;
+}
+
 .loader {
   padding-top: 15%;
   padding-right: 0%;

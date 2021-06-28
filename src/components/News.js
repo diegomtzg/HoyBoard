@@ -19,7 +19,6 @@ export default function News() {
         `api-key=${process.env.REACT_APP_NYT_API_KEY}`;
       const response = await fetch(reqUrl);
       const news = await response.json();
-      console.log(news.results);
       setNews(news.results);
       setLoading(false);
     }

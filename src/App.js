@@ -12,8 +12,8 @@ import NowPlaying from "./components/NowPlaying";
 import AccountContext from "./components/AccountContext";
 import ReactGA from "react-ga";
 
-export var redirect_uri = "https://hoyboard.diegomartinez.me";
-// export var redirect_uri = "http://localhost:3000/";
+// export var redirect_uri = "https://hoyboard.diegomartinez.me";
+export var redirect_uri = "http://localhost:3000";
 
 function App() {
   const [googleSignedIn, setGoogleSignedIn] = useState(false);
