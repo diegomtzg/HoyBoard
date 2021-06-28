@@ -12,8 +12,8 @@ import NowPlaying from "./components/NowPlaying";
 import AccountContext from "./components/AccountContext";
 import ReactGA from "react-ga";
 
-// export var redirect_uri = "https://hoyboard.diegomartinez.me";
-export var redirect_uri = "http://localhost:3000";
+// Environment variable so that same code works on deployed version (localhost vs diegomartinez.me)
+export var redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 
 function App() {
   const [googleSignedIn, setGoogleSignedIn] = useState(false);
