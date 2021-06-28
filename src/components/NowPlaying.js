@@ -105,8 +105,7 @@ export default function NowPlaying() {
 
   function renderSpotifyPlayer() {
     if (!playing) {
-      // Render nothing.
-      return null;
+      return <h1 className="no-song">Nothing is playing.</h1>;
     }
 
     return (

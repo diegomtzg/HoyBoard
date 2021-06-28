@@ -112,8 +112,11 @@ export default function Emails() {
   if (googleSignedIn) {
     if (loading) {
       return (
-        <div className="emails loader">
-          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        <div className="emails">
+          <h1 className="emails-title">New Emails</h1>
+          <div className="loader">
+            <CircleLoader size={100} color={"#F50057"} loading={loading} />
+          </div>
         </div>
       );
     } else {
@@ -129,7 +132,7 @@ export default function Emails() {
           </h1>
           <ul className="email-list">
             {threadIds.length === 0 && (
-              <h3 className="no-emails">No new emails!</h3>
+              <h3 className="no-emails">No new emails.</h3>
             )}
             {threadIds.length > 0 &&
               threadIds.map((id, idx) => (

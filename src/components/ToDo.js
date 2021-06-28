@@ -64,7 +64,7 @@ export default function ToDo() {
         </ul>
       );
     } else {
-      return <p className="todo-empty">Empty!</p>;
+      return <p className="todo-empty">Nothing left to do!</p>;
     }
   }
 

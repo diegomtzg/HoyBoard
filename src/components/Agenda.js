@@ -95,7 +95,7 @@ export default function Agenda() {
 
   function renderEvents() {
     if (events.empty) {
-      return <h3 className="no-events">No more events today!</h3>;
+      return <h3 className="no-events">No more events today.</h3>;
     } else {
       return (
         <ul className="events-list">
@@ -124,8 +124,11 @@ export default function Agenda() {
   if (googleSignedIn) {
     if (loading) {
       return (
-        <div className="agenda loader">
-          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        <div className="agenda">
+          <h1 className="agenda-title">Today's Events</h1>
+          <div className="loader">
+            <CircleLoader size={100} color={"#F50057"} loading={loading} />
+          </div>
         </div>
       );
     } else {

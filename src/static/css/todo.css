@@ -19,8 +19,7 @@
 .todo-card {
   font-size: 1.2em;
   padding-top: 6px;
-  padding-left: 10%;
-  text-align: left;
+  text-align: center;
 }
 
 .card-name {
