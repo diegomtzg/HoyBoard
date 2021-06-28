@@ -11,7 +11,7 @@ const fetchPeriod = 1000 * 60;
 const maxResults = 4;
 
 export default function Emails() {
-  const { googleSignedIn } = useContext(AccountContext);
+  const { googleSignedIn, loadingGoogleSignIn } = useContext(AccountContext);
   const [threadIds, setThreadIds] = useState([]);
   const [emails, setEmails] = useState({});
   const [loading, setLoading] = useState(true);
@@ -106,6 +106,17 @@ export default function Emails() {
         </div>
       );
     }
+  }
+
+  if (loadingGoogleSignIn) {
+    return (
+      <div className="emails">
+        <h1 className="emails-title">New Emails</h1>
+        <div className="emails-loader">
+          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        </div>
+      </div>
+    );
   }
 
   if (googleSignedIn) {

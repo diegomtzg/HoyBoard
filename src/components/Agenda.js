@@ -10,7 +10,7 @@ import "../static/css/agenda.css";
 const fetchPeriod = 1000 * 60;
 
 export default function Agenda() {
-  const { googleSignedIn } = useContext(AccountContext);
+  const { googleSignedIn, loadingGoogleSignIn } = useContext(AccountContext);
   const [events, setEvents] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -118,6 +118,17 @@ export default function Agenda() {
         </ul>
       );
     }
+  }
+
+  if (loadingGoogleSignIn) {
+    return (
+      <div className="agenda">
+        <h1 className="agenda-title">Today's Events</h1>
+        <div className="agenda-loader">
+          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        </div>
+      </div>
+    );
   }
 
   if (googleSignedIn) {

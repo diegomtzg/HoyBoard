@@ -17,6 +17,7 @@ export var redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 
 function App() {
   const [googleSignedIn, setGoogleSignedIn] = useState(false);
+  const [loadingGoogleSignIn, setLoadingGoogleSignIn] = useState(true);
 
   useEffect(() => {
     function initGoogleClient() {
@@ -44,6 +45,7 @@ function App() {
           setGoogleSignedIn(
             window.gapi.auth2.getAuthInstance().isSignedIn.get()
           );
+          setLoadingGoogleSignIn(false);
         });
     }
 
@@ -61,7 +63,7 @@ function App() {
         <source src={daynight} type="video/webm" />
       </video>
 
-      <AccountContext.Provider value={{ googleSignedIn }}>
+      <AccountContext.Provider value={{ googleSignedIn, loadingGoogleSignIn }}>
         <div className="main">
           {/* Split main screen into three columns. */}
           <div className="main-col main-left">
