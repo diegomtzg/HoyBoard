@@ -7,7 +7,7 @@ import AccountContext from "./AccountContext";
 import "../static/css/agenda.css";
 
 // Every minute
-const fetchPeriod = 1000 * 60;
+const fetchPeriod = 1000 * 10;
 
 export default function Agenda() {
   const { googleSignedIn, loadingGoogleSignIn } = useContext(AccountContext);

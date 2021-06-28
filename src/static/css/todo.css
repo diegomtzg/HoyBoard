@@ -3,6 +3,7 @@
   margin-top: 15%;
   margin-left: 80px;
   text-align: center;
+  min-height: 150px;
 }
 
 .todo-title {

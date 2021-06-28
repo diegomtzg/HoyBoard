@@ -186,7 +186,7 @@ export default function NowPlaying() {
         Now Playing
         {token && (
           <FontAwesomeIcon
-            className="trello-signout-icon"
+            className="spotify-signout-icon"
             icon={faSignOutAlt}
             onClick={handleSignOut}
           />

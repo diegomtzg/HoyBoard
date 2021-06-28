@@ -7,7 +7,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/emails.css";
 
 // Every minute
-const fetchPeriod = 1000 * 60;
+const fetchPeriod = 1000 * 10;
 const maxResults = 4;
 
 export default function Emails() {
