@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SpotifySigninButton from "./Buttons/SpotifySignInButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import CircleLoader from "react-spinners/CircleLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPause,
@@ -19,8 +20,9 @@ const fetchPeriod = 1000;
 // https://developer.spotify.com/dashboard/applications/
 export default function NowPlaying() {
   const [token, setToken] = useState();
-  const [playing, setPlaying] = useState(false);
   const [song, setSong] = useState();
+  const [playing, setPlaying] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchSpotifyData() {
@@ -39,8 +41,6 @@ export default function NowPlaying() {
           },
         }
       );
-      if (!response.ok) {
-      }
       if (response.status === 401) {
         let errorJson = await response.json();
         if (errorJson.error.message === "The access token expired") {
@@ -64,6 +64,44 @@ export default function NowPlaying() {
         const nowPlayingJson = await response.json();
         setSong(nowPlayingJson);
         setPlaying(true);
+        setLoading(false);
+      }
+    }
+
+    // Very hacky way of refreshing token every hour...
+    function getSpotifyToken() {
+      // Get the hash of the url
+      const hash = window.location.hash
+        .substring(1)
+        .split("&")
+        .reduce(function (initial, item) {
+          if (item) {
+            var parts = item.split("=");
+            initial[parts[0]] = decodeURIComponent(parts[1]);
+          }
+          return initial;
+        }, {});
+      window.location.hash = "";
+      let redirectToken = hash.access_token;
+
+      // If redirectToken here is not null, we redirected from spotify
+      if (redirectToken) {
+        // Redirected from spotify.
+        setToken(redirectToken);
+
+        // Store locally
+        window.localStorage.setItem("spotify_token", redirectToken);
+
+        // After 3600s, token is no longer valid.
+        setTimeout(() => {
+          window.localStorage.removeItem("spotify_token");
+        }, 3600 * 1000);
+      }
+
+      // If we still don't have a token, check to see if we have a valid one stored.
+      if (!token) {
+        let storedToken = window.localStorage.getItem("spotify_token");
+        setToken(storedToken);
       }
     }
 
@@ -72,37 +110,6 @@ export default function NowPlaying() {
     return () => clearInterval(interval);
   }, [token]);
 
-  // Very hacky way of refreshing token every hour...
-  function getSpotifyToken() {
-    // Get the hash of the url
-    const hash = window.location.hash
-      .substring(1)
-      .split("&")
-      .reduce(function (initial, item) {
-        if (item) {
-          var parts = item.split("=");
-          initial[parts[0]] = decodeURIComponent(parts[1]);
-        }
-        return initial;
-      }, {});
-    window.location.hash = "";
-    let redirectToken = hash.access_token;
-
-    // If redirectToken here is not null, we redirected from spotify
-    if (redirectToken !== null && redirectToken !== undefined) {
-      // Redirected from spotify.
-      setToken(redirectToken);
-
-      // Store locally
-      window.localStorage.setItem("spotify_token", redirectToken);
-
-      // After 3600s, token is no longer valid.
-      setTimeout(() => {
-        window.localStorage.setItem("spotify_token", null);
-      }, 3600 * 1000);
-    }
-  }
-
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -110,6 +117,14 @@ export default function NowPlaying() {
   }
 
   function renderSpotifyPlayer() {
+    if (loading) {
+      return (
+        <div className="nowplaying-loader">
+          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        </div>
+      );
+    }
+
     if (!playing) {
       return <h1 className="no-song">Nothing is playing.</h1>;
     }
@@ -162,7 +177,8 @@ export default function NowPlaying() {
   }
 
   function handleSignOut() {
-    setToken(null);
+    window.localStorage.removeItem("spotify_token");
+    setToken(false);
   }
 
   return (

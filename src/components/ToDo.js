@@ -17,10 +17,17 @@ export default function ToDo() {
 
   useEffect(() => {
     async function fetchTrelloCards() {
+      let token = window.localStorage.getItem("trello_token");
+      if (token) {
+        setTrelloSignedIn(true);
+        if (window.Trello) {
+          window.Trello.setToken(token);
+        }
+      }
+
       if (!trelloSignedIn) {
         return;
       }
-      console.log("Fetching Trello cards...");
 
       // Use first board whose name contains "To Do" (case sensitive)
       window.Trello.get(
@@ -71,8 +78,11 @@ export default function ToDo() {
   if (trelloSignedIn) {
     if (loading) {
       return (
-        <div className="loader">
-          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        <div className="todo">
+          <h1 className="todo-title">To Do List</h1>
+          <div className="todo-loader">
+            <CircleLoader size={100} color={"#F50057"} loading={loading} />
+          </div>
         </div>
       );
     } else {
@@ -84,6 +94,7 @@ export default function ToDo() {
               className="trello-signout-icon"
               icon={faSignOutAlt}
               onClick={() => {
+                window.localStorage.removeItem("trello_token");
                 Trello.deauthorize();
                 setTrelloSignedIn(false);
               }}
@@ -97,7 +108,7 @@ export default function ToDo() {
     return (
       <div className="todo">
         <h1 className="todo-title">To Do List</h1>
-        <TrelloSignInButton signoutFunction={setTrelloSignedIn} />
+        <TrelloSignInButton setSignedInFunction={setTrelloSignedIn} />
       </div>
     );
   }

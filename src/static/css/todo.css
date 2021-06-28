@@ -46,8 +46,8 @@
   color: #4051b5;
 }
 
-.loader {
+.todo-loader {
   padding-top: 10%;
-  padding-bottom: 25%;
-  padding-right: 50%;
+  margin-bottom: 30%;
+  padding-right: 20%;
 }

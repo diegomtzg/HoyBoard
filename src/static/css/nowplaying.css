@@ -79,3 +79,7 @@
   cursor: pointer;
   color: #4051b5;
 }
+
+.nowplaying-loader {
+  padding-right: 20%;
+}

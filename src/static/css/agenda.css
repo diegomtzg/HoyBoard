@@ -41,6 +41,7 @@
   font-style: oblique;
 }
 
-.loader {
-  margin-right: 120px;
+.agenda-loader {
+  padding-top: 5%;
+  padding-right: 20%;
 }

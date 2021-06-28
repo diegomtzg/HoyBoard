@@ -38,8 +38,8 @@
   font-size: 1.4em;
 }
 
-.loader {
+.weather-loader {
   padding-top: 10%;
   padding-bottom: 25%;
-  padding-right: 60%;
+  padding-right: 10%;
 }

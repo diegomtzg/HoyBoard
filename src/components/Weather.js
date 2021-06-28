@@ -18,9 +18,6 @@ export default function Weather() {
           navigator.geolocation.getCurrentPosition(resolve, reject)
         )
       ).coords;
-      console.log(
-        `Fetching weather at (${coords.latitude},${coords.longitude})...`
-      );
 
       var reqUrl =
         `https://api.weatherapi.com/v1/current.json?` +
@@ -41,7 +38,7 @@ export default function Weather() {
   function renderWeather() {
     if (loading) {
       return (
-        <div className="loader">
+        <div className="weather-loader">
           <CircleLoader size={100} color={"#F50057"} loading={loading} />
         </div>
       );

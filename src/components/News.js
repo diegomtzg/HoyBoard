@@ -13,13 +13,11 @@ export default function News() {
 
   useEffect(() => {
     async function fetchNews() {
-      console.log("Fetching news...");
       const reqUrl =
         `https://api.nytimes.com/svc/topstories/v2/home.json?` +
         `api-key=${process.env.REACT_APP_NYT_API_KEY}`;
       const response = await fetch(reqUrl);
       const news = await response.json();
-      console.log(news);
       setNews(news.results);
       setLoading(false);
     }
@@ -31,8 +29,11 @@ export default function News() {
 
   if (loading) {
     return (
-      <div className="news loader">
-        <CircleLoader size={100} color={"#F50057"} loading={loading} />
+      <div className="news">
+        <h1 className="news-title">Today's Headlines</h1>
+        <div className="news-loader">
+          <CircleLoader size={100} color={"#F50057"} loading={loading} />
+        </div>
       </div>
     );
   } else {

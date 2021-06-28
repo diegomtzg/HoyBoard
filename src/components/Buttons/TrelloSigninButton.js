@@ -14,7 +14,10 @@ export default function TrelloSignInButton(props) {
       intentEndpoint="https://trello.com"
       authorizeName="HoyBoard"
       authorizeExpiration="never"
-      authorizeOnSuccess={() => props.signoutFunction(true)}
+      authorizeOnSuccess={() => {
+        props.setSignedInFunction(true);
+        window.localStorage.setItem("trello_token", window.Trello.token());
+      }}
       authorizeOnError={(error) => console.log("Login error!", error)}
       autoAuthorize={false}
       authorizeButton={true}

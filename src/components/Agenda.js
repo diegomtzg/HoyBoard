@@ -20,7 +20,6 @@ export default function Agenda() {
         return;
       }
 
-      console.log("Fetching events...");
       var midnight = new Date();
       midnight.setHours(0, 0, 0, 0);
       midnight.setDate(midnight.getDate() + 1);
@@ -126,7 +125,7 @@ export default function Agenda() {
       return (
         <div className="agenda">
           <h1 className="agenda-title">Today's Events</h1>
-          <div className="loader">
+          <div className="agenda-loader">
             <CircleLoader size={100} color={"#F50057"} loading={loading} />
           </div>
         </div>

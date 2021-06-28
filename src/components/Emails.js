@@ -22,7 +22,6 @@ export default function Emails() {
         return;
       }
 
-      console.log("Fetching unread emails...");
       window.gapi.client.gmail.users.threads
         .list({
           userId: "me",
@@ -114,7 +113,7 @@ export default function Emails() {
       return (
         <div className="emails">
           <h1 className="emails-title">New Emails</h1>
-          <div className="loader">
+          <div className="emails-loader">
             <CircleLoader size={100} color={"#F50057"} loading={loading} />
           </div>
         </div>
