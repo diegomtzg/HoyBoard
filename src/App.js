@@ -71,9 +71,8 @@ function App() {
             <News />
           </div>
           <div className="main-col main-center">
-            <Agenda />
-
             <NowPlaying />
+            <Agenda />
           </div>
           <div className="main-col main-right">
             <Weather />
