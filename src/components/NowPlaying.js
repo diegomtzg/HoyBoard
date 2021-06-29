@@ -21,7 +21,6 @@ export default function NowPlaying() {
   const [token, setToken] = useState();
   const [song, setSong] = useState();
   const [playing, setPlaying] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchSpotifyData() {
@@ -62,7 +61,6 @@ export default function NowPlaying() {
         const nowPlayingJson = await response.json();
         setSong(nowPlayingJson);
         setPlaying(true);
-        setLoading(false);
       }
     }
 
