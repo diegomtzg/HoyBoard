@@ -11,7 +11,7 @@
 ![](https://media.giphy.com/media/4xChyU2EItRh11Qs1K/giphy.gif)
 
 
-*Note: In order to use the Agenda and Email components from the Google API, [send me an email](mailto:diegomtzg96@gmail.com) so that I can add you to the list of test users (I wanted to publish it but the verification process is impossible so yeah this is good enough).*
+*Note: In order to use the Agenda and Email components, [send me an email](mailto:diegomtzg96@gmail.com) so that I can add you to the list of test users (I wanted to publish it but Google's app verification process is impossible so yeah this is good enough).*
 
 
 ## Features
