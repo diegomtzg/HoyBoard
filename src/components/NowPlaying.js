@@ -116,14 +116,6 @@ export default function NowPlaying() {
   }
 
   function renderSpotifyPlayer() {
-    if (loading) {
-      return (
-        <div className="nowplaying-loader">
-          <CircleLoader size={100} color={"#F50057"} loading={loading} />
-        </div>
-      );
-    }
-
     if (!playing) {
       return <h1 className="no-song">Nothing is playing.</h1>;
     }
