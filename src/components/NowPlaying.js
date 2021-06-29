@@ -50,7 +50,6 @@ export default function NowPlaying() {
               `client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&` +
               `redirect_uri=${redirect_uri}&` +
               `scope=user-read-currently-playing%20user-read-playback-state&` +
-              `show_dialog=true&` +
               `response_type=token`
           );
         }
