@@ -8,7 +8,7 @@
 > A daily information dashboard with current weather, daily agenda, to-do items, now-playing music, curated news, unread emails and even motivational quotes, all in one place.
 
 
-![](http://www.giphy.com/gifs/4xChyU2EItRh11Qs1K)
+![](https://media.giphy.com/media/4xChyU2EItRh11Qs1K/giphy.gif)
 
 
 ## Features
