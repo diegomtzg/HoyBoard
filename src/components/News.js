@@ -6,19 +6,33 @@ import "../static/css/news.css";
 const fetchPeriod = 1000 * 60 * 5;
 const numResults = 4;
 
+// Local environment uses (since this api costs like $300 a month outside of localhost):
+// "https://newsapi.org/v2/top-headlines?" +
+// `apiKey=${process.env.REACT_APP_NEWS_API_KEY}&` +
+// `sources=bbc-news,cnn,nbc-news,recode,reuters,techcrunch,the-verge,the-wall-street-journal,the-washington-post&pageSize=100`;
+
+// Deployed environment uses:
+// `https://api.nytimes.com/svc/topstories/v2/home.json?` +
+// `api-key=${process.env.REACT_APP_NEWS_API_KEY}`;
+
 //https://developer.nytimes.com/
+// https://newsapi.org/
 export default function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchNews() {
-      const reqUrl =
-        `https://api.nytimes.com/svc/topstories/v2/home.json?` +
-        `api-key=${process.env.REACT_APP_NYT_API_KEY}`;
-      const response = await fetch(reqUrl);
+      const response = await fetch(process.env.REACT_APP_NEWS_API_URL);
       const news = await response.json();
-      setNews(news.results);
+
+      if (news.articles) {
+        // Local environment, news pulled from newsapi instead of NYT
+        setNews(news.articles);
+      } else {
+        setNews(news.results);
+      }
+
       setLoading(false);
     }
 
@@ -50,8 +64,23 @@ export default function News() {
         <ul className="news-list">
           {randomNumbers.map((randomNumber, idx) => (
             <li className="news-headline" key={idx}>
-              <span className="news-source">{news[randomNumber].title}</span>
-              <p className="news-description">{news[randomNumber].abstract}</p>
+              {news[randomNumber].source ? (
+                <div>
+                  <span className="news-source">{`${news[randomNumber].source.name} – `}</span>
+                  <span className="news-title">{news[randomNumber].title}</span>
+                </div>
+              ) : (
+                <div>
+                  <span className="news-source">
+                    {news[randomNumber].title}
+                  </span>
+                </div>
+              )}
+              <p className="news-description">
+                {news[randomNumber].abstract
+                  ? news[randomNumber].abstract
+                  : news[randomNumber].description}
+              </p>
             </li>
           ))}
         </ul>
