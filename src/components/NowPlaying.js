@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SpotifySigninButton from "./Buttons/SpotifySignInButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import CircleLoader from "react-spinners/CircleLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPause,
