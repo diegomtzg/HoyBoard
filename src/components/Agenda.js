@@ -161,6 +161,10 @@ export default function Agenda() {
       <div className="agenda">
         <h1 className="agenda-title">Today's Events</h1>
         <GoogleSignInButton />
+        <p className="agenda-disclaimer">
+          HoyBoard pulls today's agenda from the primary Google calendar
+          associated with the email you signed in with.
+        </p>
       </div>
     );
   }

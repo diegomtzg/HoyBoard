@@ -36,6 +36,11 @@ export default function ToDo() {
             let todoBoard = boards.find((board) =>
               board.name.includes("To Do")
             );
+            if (!todoBoard) {
+              setCards([]);
+              setLoading(false);
+              return;
+            }
 
             // Get cards from the To Do board
             window.Trello.get(
@@ -108,6 +113,10 @@ export default function ToDo() {
       <div className="todo">
         <h1 className="todo-title">To Do List</h1>
         <TrelloSignInButton setSignedInFunction={setTrelloSignedIn} />
+        <p className="todo-disclaimer">
+          HoyBoard pulls the To Do list from a Trello Board in your account with
+          "To Do" in the title (case sensitive).
+        </p>
       </div>
     );
   }

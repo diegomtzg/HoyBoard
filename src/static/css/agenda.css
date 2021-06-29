@@ -1,4 +1,8 @@
 .agenda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 90%;
   text-align: center;
   min-height: 25%;
@@ -46,4 +50,13 @@
 .agenda-loader {
   padding-top: 5%;
   padding-right: 20%;
+}
+
+.agenda-disclaimer {
+  text-align: center;
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: oblique;
+  margin: 0;
+  width: 80%;
 }

@@ -1,4 +1,8 @@
 .todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 80%;
   margin-top: 15%;
   margin-left: 80px;
@@ -33,6 +37,15 @@
   color: rgba(255, 255, 255, 0.7);
   font-style: oblique;
   font-weight: bold;
+}
+
+.todo-disclaimer {
+  text-align: center;
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: oblique;
+  margin: 0;
+  width: 90%;
 }
 
 .trello-signout-icon {
