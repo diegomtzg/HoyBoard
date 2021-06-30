@@ -9,6 +9,7 @@ import {
   faMusic,
   faCompactDisc,
   faSignOutAlt,
+  faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 import "../static/css/nowplaying.css";
 import { redirect_uri } from "../App";
@@ -20,6 +21,7 @@ const fetchPeriod = 1000;
 export default function NowPlaying() {
   const [token, setToken] = useState(null);
   const [song, setSong] = useState({});
+  const [device, setDevice] = useState({});
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function NowPlaying() {
         return;
       }
 
-      const response = await fetch(
+      const nowplayingResp = await fetch(
         "https://api.spotify.com/v1/me/player/currently-playing",
         {
           headers: {
@@ -39,8 +41,10 @@ export default function NowPlaying() {
           },
         }
       ).catch((err) => console.log(err));
-      if (response.status === 401) {
-        let errorJson = await response.json().catch((err) => console.log(err));
+      if (nowplayingResp.status === 401) {
+        let errorJson = await nowplayingResp
+          .json()
+          .catch((err) => console.log(err));
         if (errorJson.error.message === "The access token expired") {
           // Refresh access token
           window.location.assign(
@@ -53,15 +57,31 @@ export default function NowPlaying() {
         }
       }
 
-      if (response.status === 204) {
+      if (nowplayingResp.status === 204) {
         // If playing nothing, status is 204.
         setPlaying(false);
       }
-      if (response.status === 200) {
-        const nowPlayingJson = await response
+      if (nowplayingResp.status === 200) {
+        const devicesResponse = await fetch(
+          "https://api.spotify.com/v1/me/player/devices",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        ).catch((err) => console.log(err));
+        const devicesJson = await devicesResponse
+          .json()
+          .catch((err) => console.log(err));
+        console.log(devicesJson);
+        let _device = devicesJson.devices.find((device) => device.is_active);
+
+        const nowPlayingJson = await nowplayingResp
           .json()
           .catch((err) => console.log(err));
         setSong(nowPlayingJson);
+        setDevice(_device);
         setPlaying(true);
       }
     }
@@ -162,6 +182,10 @@ export default function NowPlaying() {
             value={(song.progress_ms * 100) / song.item.duration_ms}
           />
         </div>
+        <p className="nowplaying-device">
+          <FontAwesomeIcon icon={faVolumeUp} /> Listening on{" "}
+          <span className="nowplaying-device-name">{device.name}</span>
+        </p>
       </div>
     );
   }

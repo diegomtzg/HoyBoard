@@ -30,8 +30,8 @@
 }
 
 .nowplaying-artwork {
-  width: 130px;
-  height: 130px;
+  width: 128px;
+  height: 128px;
   padding-right: 10px;
 }
 
@@ -49,7 +49,7 @@
 
 .text-margin {
   margin: 0;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -81,4 +81,16 @@
 
 .nowplaying-loader {
   padding-right: 20%;
+}
+
+.nowplaying-device {
+  margin-top: 10px;
+  text-align: right;
+  padding-right: 2%;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.nowplaying-device-name {
+  font-weight: bold;
 }
