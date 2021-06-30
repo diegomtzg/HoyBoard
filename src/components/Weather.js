@@ -24,8 +24,8 @@ export default function Weather() {
         `key=${WEATHER_API_KEY}&` +
         `q=${coords.latitude},${coords.longitude}&` +
         `aqi=no`;
-      const response = await fetch(reqUrl);
-      const weather = await response.json();
+      const response = await fetch(reqUrl).catch((err) => console.log(err));
+      const weather = await response.json().catch((err) => console.log(err));
       setWeather(weather);
       setLoading(false);
     }

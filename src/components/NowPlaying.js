@@ -18,8 +18,8 @@ const fetchPeriod = 1000;
 
 // https://developer.spotify.com/dashboard/applications/
 export default function NowPlaying() {
-  const [token, setToken] = useState();
-  const [song, setSong] = useState();
+  const [token, setToken] = useState(null);
+  const [song, setSong] = useState({});
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
@@ -38,9 +38,9 @@ export default function NowPlaying() {
             Authorization: "Bearer " + token,
           },
         }
-      );
+      ).catch((err) => console.log(err));
       if (response.status === 401) {
-        let errorJson = await response.json();
+        let errorJson = await response.json().catch((err) => console.log(err));
         if (errorJson.error.message === "The access token expired") {
           // Refresh access token
           window.location.assign(
@@ -58,7 +58,9 @@ export default function NowPlaying() {
         setPlaying(false);
       }
       if (response.status === 200) {
-        const nowPlayingJson = await response.json();
+        const nowPlayingJson = await response
+          .json()
+          .catch((err) => console.log(err));
         setSong(nowPlayingJson);
         setPlaying(true);
       }

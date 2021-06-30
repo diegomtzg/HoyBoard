@@ -23,8 +23,10 @@ export default function News() {
 
   useEffect(() => {
     async function fetchNews() {
-      const response = await fetch(process.env.REACT_APP_NEWS_API_URL);
-      const news = await response.json();
+      const response = await fetch(process.env.REACT_APP_NEWS_API_URL).catch(
+        (err) => console.log(err)
+      );
+      const news = await response.json().catch((err) => console.log(err));
 
       if (news.articles) {
         // Local environment, news pulled from newsapi instead of NYT

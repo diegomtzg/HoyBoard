@@ -18,7 +18,7 @@ export default function TrelloSignInButton(props) {
         props.setSignedInFunction(true);
         window.localStorage.setItem("trello_token", window.Trello.token());
       }}
-      authorizeOnError={(error) => console.log("Login error!", error)}
+      authorizeOnError={(error) => console.log("Trello login error!", error)}
       autoAuthorize={false}
       authorizeButton={true}
       buttonStyle="metamorph"
