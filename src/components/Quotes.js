@@ -22,8 +22,8 @@ export default function Quotes() {
 
   return (
     <div className="quotes">
-      <p className="quote">"{quote.quote}"</p>
-      <p className="author">– {quote.author}</p>
+      <span className="quote">"{quote.quote}"</span>
+      <span className="author"> – {quote.author}</span>
     </div>
   );
 }
