@@ -39,9 +39,3 @@
   font-size: 1.5em;
   padding-right: 4px;
 }
-
-@media (max-height: 600px) {
-  .time {
-    transform: scale(0.7);
-  }
-}

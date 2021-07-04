@@ -39,9 +39,3 @@
   padding-top: 30%;
   margin-left: 40%;
 }
-
-@media (max-height: 600px) {
-  .news {
-    transform: scale(0.7);
-  }
-}

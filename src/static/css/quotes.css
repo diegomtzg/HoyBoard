@@ -21,8 +21,8 @@
   padding-right: 4%;
 }
 
-@media (max-height: 600px) {
+@media (max-height: 800px) {
   .quotes {
-    transform: scale(0.7);
+    transform: scale(0);
   }
 }
