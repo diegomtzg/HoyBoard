@@ -46,7 +46,11 @@ export default function Emails() {
               .then((detailResponse) => {
                 var message = detailResponse.result.messages[0];
                 var date = message.internalDate;
-                var snippet = message.snippet.replace(/&#39;/g, "'");
+
+                // Replace apostrophe and zero-width whitespace chars
+                var snippet = message.snippet
+                  .replace(/&#39;/g, "'")
+                  .replace(/[\u200B-\u200D\uFEFF]/g, "");
                 var subject, sender;
                 message.payload.headers.forEach((header) => {
                   if (header.name === "Subject" || header.name === "subject") {
