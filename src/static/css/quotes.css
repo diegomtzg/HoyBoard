@@ -20,3 +20,9 @@
   margin-top: 4px;
   padding-right: 4%;
 }
+
+@media (max-height: 600px) {
+  .quotes {
+    transform: scale(0.7);
+  }
+}
