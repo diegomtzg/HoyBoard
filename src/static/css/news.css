@@ -1,6 +1,6 @@
 .news {
-  margin-top: 12%;
-  width: 80%;
+  margin-top: 18%;
+  width: 85%;
 }
 
 .news-title {
@@ -15,7 +15,7 @@
 }
 
 .news-headline {
-  font-size: 1.05em;
+  font-size: 1.3em;
   padding: 8px 0;
 }
 

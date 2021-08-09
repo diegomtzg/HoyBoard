@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   width: 80%;
-  margin-top: 12%;
+  margin-top: 20%;
   margin-left: 80px;
   text-align: center;
   min-height: 150px;
@@ -22,13 +22,12 @@
 }
 
 .todo-card {
-  font-size: 1.2em;
+  font-size: 1.3em;
   padding-top: 6px;
   text-align: center;
 }
 
 .card-name {
-  font-weight: bold;
 }
 
 .todo-empty {
