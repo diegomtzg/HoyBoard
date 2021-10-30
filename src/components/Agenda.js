@@ -78,11 +78,21 @@ export default function Agenda() {
     const eventEnd = new Date(event.end.dateTime);
     let [, startHours, startMinutes, , startAmPm] =
       /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
-        eventStart.toLocaleTimeString()
+        eventStart.toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: true,
+        })
       );
     let [, endHours, endMinutes, , endAmPm] =
       /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
-        eventEnd.toLocaleTimeString()
+        eventEnd.toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: true,
+        })
       );
 
     const currTime = new Date();
