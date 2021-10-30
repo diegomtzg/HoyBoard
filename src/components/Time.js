@@ -45,7 +45,12 @@ export default function Time() {
 
   let [, hours, minutes, seconds, ampm] =
     /([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}) ([A-Z]{2})/.exec(
-      date.toLocaleTimeString()
+      date.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true,
+      })
     );
 
   return (
