@@ -13,11 +13,15 @@ export default function Weather() {
   useEffect(() => {
     async function fetchWeather() {
       // Figure out computer's current coordinates (takes a few seconds).
-      const coords = (
-        await new Promise((resolve, reject) =>
-          navigator.geolocation.getCurrentPosition(resolve, reject)
-        )
-      ).coords;
+      // const coords = (
+      //   await new Promise((resolve, reject) =>
+      //     navigator.geolocation.getCurrentPosition(resolve, reject)
+      //   )
+      // ).coords;
+      const coords = {
+        latitude: 47.6062,
+        longitude: -122.3321,
+      };
 
       var reqUrl =
         `https://api.weatherapi.com/v1/current.json?` +

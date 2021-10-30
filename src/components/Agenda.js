@@ -26,7 +26,7 @@ export default function Agenda() {
 
       window.gapi.client.calendar.events
         .list({
-          calendarId: "primary",
+          calendarId: "diegomtzg@google.com", // work calendar
           timeMin: new Date().toISOString(),
           timeMax: midnight.toISOString(),
           showDeleted: false,
@@ -35,6 +35,7 @@ export default function Agenda() {
           orderBy: "startTime",
         })
         .then(function (response) {
+          console.log(response.result.items);
           var sortedEvents = sortEvents(response.result.items);
           setEvents(sortedEvents);
           setLoading(false);
@@ -47,10 +48,16 @@ export default function Agenda() {
   }, [googleSignedIn]);
 
   function sortEvents(items) {
+    var numUndef = 1;
     var sortedEvents = { allDay: [], regular: [], empty: false };
     if (items.length > 0) {
       items.forEach((event) => {
         var when = event.start.dateTime;
+        // Private work events don't show their name
+        if (event.summary === undefined) {
+          event.summary = "Meeting " + numUndef;
+          numUndef += 1;
+        }
         if (!when) {
           // All-day events use start.date instead of start.dateTime
           sortedEvents.allDay.push(event);
